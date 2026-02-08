@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RollFlix - Descubra filmes e séries de forma aleatória e divertida">
+    <title>RollFlix - Detalhes do Projeto</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para a página de detalhes */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .back-button:hover {
+            gap: 0.75rem;
+            color: var(--accent-hover);
+        }
+
+        .project-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
+            padding: var(--spacing-2xl) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .project-header h1 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .project-badges {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: var(--spacing-md);
+        }
+
+        .badge {
+            background-color: var(--bg-tertiary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .feature-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .feature-title {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .feature-card {
+            background-color: var(--bg-secondary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+
+        .feature-card h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.3rem;
+        }
+
+        .feature-card ul {
+            color: var(--text-secondary);
+            margin-left: var(--spacing-md);
+            line-height: 1.8;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .gallery-item {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .gallery-caption {
+            padding: var(--spacing-sm);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .tech-category {
+            background-color: var(--bg-secondary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .tech-category h4 {
+            color: var(--accent-primary);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.1rem;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid var(--accent-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .highlight-box h3 {
+            color: var(--accent-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            margin-top: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <div class="container">
+            <a href="index.html" class="back-button">
+                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Voltar ao Portfólio
+            </a>
+            
+            <div class="project-header">
+                <h1>🎬 RollFlix</h1>
+                <p class="project-tagline">Descubra filmes e séries de forma aleatória e divertida!</p>
+                
+                <div class="project-badges">
+                    <span class="badge">Flutter 3.32+</span>
+                    <span class="badge">Material Design 3</span>
+                    <span class="badge">Firebase</span>
+                    <span class="badge">TMDb API</span>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="https://github.com/Gipsy7/RollFlix" target="_blank" class="btn btn-primary">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        Ver no GitHub
+                    </a>
+                    <a href="https://play.google.com/store" target="_blank" class="btn btn-secondary">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                        </svg>
+                        Google Play
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="section">
+        <div class="container">
+            <!-- Overview -->
+            <div class="highlight-box">
+                <h3>Sobre o Projeto</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    RollFlix é um aplicativo Flutter moderno que ajuda você a descobrir conteúdo usando a API do The Movie Database (TMDb). 
+                    Escolha um gênero, gire a roda e deixe o app escolher algo incrível para você assistir. 
+                    Com sistema dual de filmes e séries, autenticação Firebase, sincronização na nuvem e recursos premium.
+                </p>
+            </div>
+
+            <!-- Gallery -->
+            <div class="feature-section">
+                <h2 class="feature-title">
+                    🖼️ Interface do Aplicativo
+                </h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="assets/images/Rollflix/aj6x89.gif" alt="Tela inicial">
+                        <div class="gallery-caption">Tela Inicial - Roleta de Gêneros</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/images/Rollflix/aj6xe1.gif" alt="Sistema de busca">
+                        <div class="gallery-caption">Sistema de Busca Avançada</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/images/Rollflix/aj6xig.gif" alt="Detalhes do filme">
+                        <div class="gallery-caption">Detalhes do Filme/Série</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/images/Rollflix/aj6xkh.gif" alt="Favoritos">
+                        <div class="gallery-caption">Gerenciamento de Favoritos</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/images/Rollflix/aj6xte.gif" alt="Perfil do usuário">
+                        <div class="gallery-caption">Perfil e Estatísticas</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/images/Rollflix/aj6xx6.gif" alt="Configurações">
+                        <div class="gallery-caption">Preferências e Filtros</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="feature-section">
+                <h2 class="feature-title">
+                    🚀 Principais Funcionalidades
+                </h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🎭 Sistema Dual</h3>
+                        <ul>
+                            <li>Alterne entre filmes e séries</li>
+                            <li>Paleta de cores dinâmica</li>
+                            <li>Gêneros específicos por tipo</li>
+                            <li>Interface adaptativa</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>🎲 Roleta de Descoberta</h3>
+                        <ul>
+                            <li>Roda interativa de gêneros</li>
+                            <li>Sorteio aleatório inteligente</li>
+                            <li>Filtros personalizáveis</li>
+                            <li>Pré-visualização de trailers</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>🔐 Autenticação Firebase</h3>
+                        <ul>
+                            <li>Login com Google</li>
+                            <li>Sincronização na nuvem</li>
+                            <li>Suporte offline</li>
+                            <li>Gerenciamento de perfil</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>⭐ Favoritos & Assistidos</h3>
+                        <ul>
+                            <li>Marque favoritos</li>
+                            <li>Registre conteúdo assistido</li>
+                            <li>Sincronização entre dispositivos</li>
+                            <li>Listas organizadas</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>📊 Sistema de Recursos</h3>
+                        <ul>
+                            <li>5 rolagens diárias</li>
+                            <li>Recursos limitados gratuitos</li>
+                            <li>Recarga por anúncios</li>
+                            <li>Planos premium disponíveis</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>💎 Assinaturas Premium</h3>
+                        <ul>
+                            <li>Recursos ilimitados</li>
+                            <li>Sem anúncios</li>
+                            <li>Integração RevenueCat</li>
+                            <li>Planos mensal e anual</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>🔔 Notificações Push</h3>
+                        <ul>
+                            <li>Alertas de novos episódios</li>
+                            <li>Notificações de lançamentos</li>
+                            <li>Agendamento automático</li>
+                            <li>Personalização completa</li>
+                        </ul>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>🌐 Multi-idioma</h3>
+                        <ul>
+                            <li>Português (Brasil)</li>
+                            <li>English (US)</li>
+                            <li>Español</li>
+                            <li>Français</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="feature-section">
+                <h2 class="feature-title">
+                    🛠️ Tecnologias Utilizadas
+                </h2>
+                
+                <div class="tech-stack">
+                    <div class="tech-category">
+                        <h4>Frontend</h4>
+                        <div class="tech-list">
+                            <span class="tech-tag">Flutter 3.32+</span>
+                            <span class="tech-tag">Dart 3.9.2</span>
+                            <span class="tech-tag">Material Design 3</span>
+                            <span class="tech-tag">Custom Animations</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h4>Backend & Serviços</h4>
+                        <div class="tech-list">
+                            <span class="tech-tag">Firebase Auth</span>
+                            <span class="tech-tag">Cloud Firestore</span>
+                            <span class="tech-tag">Cloud Messaging</span>
+                            <span class="tech-tag">RevenueCat</span>
+                            <span class="tech-tag">Google Mobile Ads</span>
+                            <span class="tech-tag">TMDb API</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h4>Arquitetura</h4>
+                        <div class="tech-list">
+                            <span class="tech-tag">MVC Pattern</span>
+                            <span class="tech-tag">Singleton Services</span>
+                            <span class="tech-tag">Repository Pattern</span>
+                            <span class="tech-tag">Dependency Injection</span>
+                        </div>
+                    </div>
+
+                    <div class="tech-category">
+                        <h4>Performance</h4>
+                        <div class="tech-list">
+                            <span class="tech-tag">Cache Inteligente</span>
+                            <span class="tech-tag">Lazy Loading</span>
+                            <span class="tech-tag">60 FPS</span>
+                            <span class="tech-tag">Startup Otimizado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architecture Highlights -->
+            <div class="feature-section">
+                <h2 class="feature-title">
+                    📁 Estrutura do Projeto
+                </h2>
+                
+                <div class="feature-card">
+                    <pre style="color: var(--text-secondary); overflow-x: auto; line-height: 1.6;">
+lib/
+├── config/              # Configurações (API keys, RevenueCat, etc)
+├── controllers/         # Lógica de negócio e estado
+├── core/                # Utilitários e constantes globais
+├── l10n/                # Internacionalização (i18n)
+├── mixins/              # Comportamentos reutilizáveis
+├── models/              # Modelos de dados
+├── repositories/        # Acesso a dados (cache + API)
+├── screens/             # Telas da aplicação
+├── services/            # Serviços (Auth, Ads, Notificações)
+├── theme/               # Tema visual e estilos
+├── utils/               # Funções utilitárias
+└── widgets/             # Componentes reutilizáveis
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Metrics -->
+            <div class="highlight-box">
+                <h3>📊 Métricas & Performance</h3>
+                <div class="feature-grid" style="margin-top: var(--spacing-md);">
+                    <div style="text-align: center;">
+                        <h4 style="font-size: 2rem; color: var(--accent-primary);">56%</h4>
+                        <p style="color: var(--text-secondary);">Redução de código</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="font-size: 2rem; color: var(--accent-primary);">60 FPS</h4>
+                        <p style="color: var(--text-secondary);">Animações fluidas</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <h4 style="font-size: 2rem; color: var(--accent-primary);">4+</h4>
+                        <p style="color: var(--text-secondary);">Idiomas suportados</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Final -->
+            <div style="text-align: center; margin-top: var(--spacing-2xl);">
+                <h2 class="section-title">Quer saber mais?</h2>
+                <div class="cta-buttons">
+                    <a href="https://github.com/Gipsy7/RollFlix" target="_blank" class="btn btn-primary">
+                        <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        Explorar o Código
+                    </a>
+                    <a href="index.html" class="btn btn-outline">
+                        Voltar ao Portfólio
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Desenvolvido com 💜</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
