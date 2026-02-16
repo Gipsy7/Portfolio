@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Petrukio - Sistema SaaS de gestão para Pet Shops com arquitetura multi-tenant">
+    <title>Petrukio - Detalhes do Projeto</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para a página de detalhes */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .back-button:hover {
+            gap: 0.75rem;
+            color: var(--accent-hover);
+        }
+
+        .project-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
+            padding: var(--spacing-2xl) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .project-header h1 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .project-badges {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .badge {
+            padding: 0.4rem 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #22c55e;
+            font-weight: 500;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid #22c55e;
+            color: #22c55e;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .action-btn:hover {
+            background: #22c55e;
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: #22c55e;
+            color: var(--bg-primary);
+        }
+
+        .action-btn.primary:hover {
+            background: #16a34a;
+            border-color: #16a34a;
+        }
+
+        .content-section {
+            padding: var(--spacing-2xl) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-primary);
+        }
+
+        .subsection-title {
+            font-size: 1.5rem;
+            margin: var(--spacing-lg) 0 var(--spacing-md);
+            color: var(--accent-primary);
+        }
+
+        .text-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .highlight-box {
+            background: rgba(34, 197, 94, 0.05);
+            border-left: 4px solid #22c55e;
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            border-radius: 4px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .feature-card:hover {
+            border-color: #22c55e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin: var(--spacing-md) 0;
+        }
+
+        .tech-item {
+            padding: 0.5rem 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 6px;
+            color: #22c55e;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #22c55e;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .code-block {
+            background: #0a0a0a;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            margin: 0;
+            color: #22c55e;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .challenge-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .challenge-item {
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid #22c55e;
+            border-radius: 4px;
+        }
+
+        .challenge-item strong {
+            color: #22c55e;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        ul.simple-list {
+            margin-left: var(--spacing-lg);
+            color: var(--text-secondary);
+        }
+
+        ul.simple-list li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 2rem;
+            }
+
+            .project-tagline {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="padding-top: var(--spacing-lg);">
+        <a href="index.html" class="back-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <h1>🐾 Petrukio</h1>
+                <p class="project-tagline">Sistema SaaS enterprise-grade de gestão para Pet Shops</p>
+                
+                <div class="project-badges">
+                    <span class="badge">Full-Stack</span>
+                    <span class="badge">Multi-Tenant</span>
+                    <span class="badge">Enterprise SaaS</span>
+                    <span class="badge">i18n</span>
+                    <span class="badge">WhatsApp Integration</span>
+                </div>
+
+                <div class="project-actions">
+                    <a href="https://petrukio-app.vercel.app" target="_blank" class="action-btn primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                        </svg>
+                        Ver Aplicação
+                    </a>
+                    <a href="https://petrukioapp-api.onrender.com/scalar/v1" target="_blank" class="action-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                        Documentação API
+                    </a>
+                    <a href="https://github.com/Gipsy7/PetrukioApp" target="_blank" class="action-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Visão Geral do Projeto</h2>
+            
+            <div class="highlight-box">
+                <p class="text-content" style="margin-bottom: 0;">
+                    <strong>Petrukio</strong> é uma solução SaaS completa para gerenciamento de pet shops, clínicas veterinárias e estabelecimentos similares. 
+                    Desenvolvido do zero com arquitetura full-stack moderna, implementa um sistema <strong>multi-tenant completo</strong>, 
+                    permitindo que múltiplas empresas utilizem a mesma infraestrutura com total isolamento de dados.
+                </p>
+            </div>
+
+            <p class="text-content">
+                O sistema resolve problemas reais do mercado: pet shops enfrentam dificuldades em gerenciar agendamentos manualmente, 
+                lidar com confirmações via telefone e organizar dados de clientes/pets de forma eficiente. Petrukio automatiza todo esse 
+                fluxo, reduzindo no-shows e otimizando o tempo da equipe.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">15k+</span>
+                    <span class="stat-label">Linhas de Código</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">40+</span>
+                    <span class="stat-label">Endpoints API</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">612+</span>
+                    <span class="stat-label">Translation Keys</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">30+</span>
+                    <span class="stat-label">Componentes React</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Stack Tecnológica</h2>
+
+            <h3 class="subsection-title">Frontend</h3>
+            <div class="tech-stack">
+                <span class="tech-item">Next.js 14</span>
+                <span class="tech-item">React 18</span>
+                <span class="tech-item">TypeScript 5</span>
+                <span class="tech-item">Tailwind CSS</span>
+                <span class="tech-item">i18next</span>
+                <span class="tech-item">Context API</span>
+            </div>
+
+            <h3 class="subsection-title">Backend</h3>
+            <div class="tech-stack">
+                <span class="tech-item">.NET 10</span>
+                <span class="tech-item">C# 14</span>
+                <span class="tech-item">ASP.NET Core</span>
+                <span class="tech-item">Entity Framework Core 9</span>
+                <span class="tech-item">PostgreSQL</span>
+                <span class="tech-item">JWT Authentication</span>
+            </div>
+
+            <h3 class="subsection-title">Integrações & DevOps</h3>
+            <div class="tech-stack">
+                <span class="tech-item">WhatsApp Business API</span>
+                <span class="tech-item">Docker</span>
+                <span class="tech-item">Render.com</span>
+                <span class="tech-item">Vercel</span>
+                <span class="tech-item">Scalar API Docs</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Funcionalidades Principais</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3 class="feature-title">Multi-Tenancy Completo</h3>
+                    <p class="feature-description">
+                        Isolamento total de dados por empresa. Cada tenant tem configurações independentes (idioma, moeda, fuso horário) 
+                        com registro automatizado e setup instantâneo.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3 class="feature-title">Agendamentos Inteligentes</h3>
+                    <p class="feature-description">
+                        Sistema de slots com granularidade de 15 minutos, validação de conflitos automática, múltiplos status 
+                        (pendente, confirmado, cancelado, concluído) e cálculo automático de preços.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Integração WhatsApp</h3>
+                    <p class="feature-description">
+                        Menu interativo para agendamento self-service, confirmações e lembretes automáticos, webhooks em tempo real 
+                        e fallback seguro para compatibilidade universal.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 class="feature-title">Internacionalização Avançada</h3>
+                    <p class="feature-description">
+                        3 idiomas completos (pt-BR, en-US, es-ES) com 612+ chaves de tradução, alternância em tempo real, 
+                        formatação automática de moedas e datas por locale.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Gestão de Moedas</h3>
+                    <p class="feature-description">
+                        Suporte para BRL, USD, EUR com sistema independente do idioma, formatação baseada em Intl.NumberFormat 
+                        e conversão automática de valores.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3 class="feature-title">Timezone-Aware</h3>
+                    <p class="feature-description">
+                        Conversão automática entre UTC (backend) e timezone local (frontend), garantindo precisão de agendamentos 
+                        independente do fuso horário do tenant.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">Gestão Completa</h3>
+                    <p class="feature-description">
+                        CRUD completo para clientes, pets, serviços e usuários. Histórico de atividades, soft delete para preservação 
+                        de dados e sistema de roles (Owner, Admin, User, ReadOnly).
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Dashboard com Métricas</h3>
+                    <p class="feature-description">
+                        KPIs em tempo real, visualização de próximos agendamentos, filtros por data e status, 
+                        carregamento assíncrono otimizado com skeleton screens.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Arquitetura e Padrões</h2>
+
+            <h3 class="subsection-title">Frontend Architecture</h3>
+            <div class="code-block">
+                <pre>App Router (Next.js 14) com file-based routing
+├── Client Components ("use client") para interatividade
+├── Custom Hooks para lógica compartilhada
+│   ├── useAuth() - Autenticação e autorização
+│   ├── useCurrency() - Formatação de moedas
+│   ├── useTimeZone() - Conversão de fusos horários
+│   └── useLanguage() - Internacionalização
+├── Context API para estado global (Auth, Toast)
+├── Componentes UI primitivos reutilizáveis
+└── Separação clara: components/ | services/ | hooks/ | utils/</pre>
+            </div>
+
+            <h3 class="subsection-title">Backend Architecture</h3>
+            <div class="code-block">
+                <pre>Clean Architecture com separação de concerns
+├── Repository Pattern + Unit of Work
+├── Service Layer para lógica de negócio
+├── Minimal APIs (ASP.NET Core)
+├── JWT Authentication com refresh tokens
+├── Multi-tenant com TenantId em cada requisição
+├── Soft delete para registros
+└── Migrations automáticas com EF Core</pre>
+            </div>
+
+            <h3 class="subsection-title">Segurança</h3>
+            <ul class="simple-list">
+                <li>✅ JWT tokens com validação completa em cada requisição</li>
+                <li>✅ HTTPS enforcement em produção</li>
+                <li>✅ Multi-tenant data isolation (zero vazamento de dados)</li>
+                <li>✅ Input validation e sanitization</li>
+                <li>✅ CORS configurado adequadamente</li>
+                <li>✅ Webhook signature validation (WhatsApp)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Challenges -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Desafios Técnicos Superados</h2>
+
+            <ul class="challenge-list">
+                <li class="challenge-item">
+                    <strong>1. Conversão de Timezone</strong>
+                    Implementei sistema completo de conversão entre UTC (backend) e timezone local (frontend), garantindo que 
+                    agendamentos sejam precisos independente do fuso horário do tenant. Todos os cálculos consideram horário de 
+                    funcionamento local.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>2. Independência Moeda-Idioma</strong>
+                    Criei sistema onde moeda e idioma são independentes, permitindo tenant brasileiro usar USD ou tenant americano 
+                    usar BRL, com formatação correta baseada em locale. Utiliza Intl.NumberFormat para precisão.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>3. WhatsApp Menu Interativo</strong>
+                    Desenvolvi fallback inteligente quando dispositivo não suporta menus/botões, garantindo compatibilidade universal. 
+                    Webhooks processam mensagens em tempo real com validação de assinatura.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>4. Detecção de Conflitos</strong>
+                    Implementei algoritmo que detecta conflitos de agendamento considerando duração de serviços e sobreposição de horários, 
+                    validando disponibilidade antes de confirmar.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>5. Multi-Tenant Isolation</strong>
+                    Garanti isolamento completo de dados com validação em cada endpoint, impedindo acesso cruzado entre tenants. 
+                    TenantId é extraído do JWT e aplicado em todas as queries automaticamente.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>6. Internacionalização Real</strong>
+                    Não é apenas tradução de strings - implementei formatação de moedas, datas e números que respeitam locale. 
+                    Sistema carrega idioma da API e permite mudança dinâmica sem reload.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- API Highlights -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Destaques da API REST</h2>
+
+            <div class="highlight-box">
+                <p class="text-content">
+                    A API foi desenvolvida com <strong>.NET 10</strong> e <strong>PostgreSQL</strong>, implementando padrões modernos 
+                    de arquitetura e documentação interativa completa com Scalar UI.
+                </p>
+            </div>
+
+            <h3 class="subsection-title">Endpoints Principais (40+)</h3>
+            <ul class="simple-list">
+                <li><strong>Authentication & Users:</strong> Registro, login JWT, gestão de usuários por tenant</li>
+                <li><strong>Tenants & Settings:</strong> Configurações por empresa (idioma, moeda, timezone, horário de funcionamento)</li>
+                <li><strong>Customers:</strong> CRUD completo com endereço integrado e histórico</li>
+                <li><strong>Pets:</strong> Cadastro com espécie, raça, peso, alergias e notas comportamentais</li>
+                <li><strong>Services:</strong> Catálogo com preços, duração e status ativo/inativo</li>
+                <li><strong>Appointments:</strong> Gestão completa com ações de status (confirmar, iniciar, concluir, cancelar)</li>
+                <li><strong>Integrations:</strong> Configuração WhatsApp, webhooks e envio de mensagens</li>
+            </ul>
+
+            <h3 class="subsection-title">Características Técnicas</h3>
+            <ul class="simple-list">
+                <li>✅ OpenAPI 3.0 com documentação interativa (Scalar)</li>
+                <li>✅ Repository Pattern com queries otimizadas</li>
+                <li>✅ Global exception handling com logging estruturado</li>
+                <li>✅ CORS configurado para múltiplos origins</li>
+                <li>✅ Health checks para monitoring</li>
+                <li>✅ Migrations automáticas no startup</li>
+                <li>✅ Soft delete pattern para auditoria</li>
+                <li>✅ Horizontal scaling ready (stateless JWT)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Results -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Resultados e Impacto</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">📉 Redução de No-Shows</h3>
+                    <p class="feature-description">
+                        Lembretes automáticos via WhatsApp 24h antes dos agendamentos reduzem faltas e otimizam agenda.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">⚡ Otimização de Tempo</h3>
+                    <p class="feature-description">
+                        Agendamentos automáticos e confirmações via WhatsApp liberam equipe para focar no atendimento.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">🎯 Interface Intuitiva</h3>
+                    <p class="feature-description">
+                        Design system completo com 15+ componentes reutilizáveis reduz tempo de treinamento.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">🚀 Escalabilidade</h3>
+                    <p class="feature-description">
+                        Arquitetura multi-tenant permite múltiplas empresas na mesma infraestrutura com segurança total.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Aprendizados e Skills Demonstradas</h2>
+
+            <div class="text-content">
+                <p>Este projeto me permitiu aprofundar conhecimentos em:</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Full-Stack Development</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>Next.js 14 App Router e Server Components</li>
+                        <li>React 18 com Hooks avançados</li>
+                        <li>.NET 10 com Minimal APIs</li>
+                        <li>TypeScript strict mode</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">Arquitetura & Design</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>Multi-tenant SaaS design</li>
+                        <li>Clean Architecture</li>
+                        <li>Repository Pattern</li>
+                        <li>Design Systems</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">Internacionalização</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>i18n/l10n avançado</li>
+                        <li>Manipulação de timezones</li>
+                        <li>Formatação de moedas</li>
+                        <li>Locale-based formatting</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">Integrações</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>WhatsApp Business API</li>
+                        <li>Webhook handling</li>
+                        <li>RESTful API design</li>
+                        <li>JWT Authentication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <section class="content-section" style="border-bottom: none;">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title">Explore o Projeto</h2>
+            <div class="project-actions">
+                <a href="https://petrukio-app.vercel.app" target="_blank" class="action-btn primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                    </svg>
+                    Acessar Aplicação
+                </a>
+                <a href="https://petrukioapp-api.onrender.com/scalar/v1" target="_blank" class="action-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Ver Documentação API
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Mikael Francisco. Desenvolvido com 💜</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
