@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Silva & Associados - Landing Page Institucional para Escritório de Advocacia">
+    <title>Silva & Associados - Detalhes do Projeto</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para a página de detalhes */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            transition: all var(--transition-fast);
+        }
+
+        .back-button:hover {
+            gap: 0.75rem;
+            color: var(--accent-hover);
+        }
+
+        .project-hero {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f1c2e 100%);
+            padding: var(--spacing-2xl) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .project-header h1 {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .project-badges {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .badge {
+            padding: 0.4rem 1rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #d4af37;
+            font-weight: 500;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .action-btn:hover {
+            background: #d4af37;
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.primary {
+            background: #d4af37;
+            color: var(--bg-primary);
+        }
+
+        .action-btn.primary:hover {
+            background: #c19b2e;
+            border-color: #c19b2e;
+        }
+
+        .project-overview {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .overview-card {
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .overview-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .overview-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .overview-card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-lg);
+            color: #d4af37;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .feature-card:hover {
+            border-color: #d4af37;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: #d4af37;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-secondary);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .tech-item {
+            background: var(--bg-primary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            font-weight: 600;
+            transition: all var(--transition-fast);
+        }
+
+        .tech-item:hover {
+            border-color: #d4af37;
+            color: #d4af37;
+        }
+
+        .challenges-section {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .challenge-item {
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid #d4af37;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .challenge-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .challenge-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .challenge-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .results-section {
+            padding: var(--spacing-2xl) 0;
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.3) 0%, rgba(15, 28, 46, 0.3) 100%);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .result-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .result-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .result-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #d4af37;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .result-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .learnings-section {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .learnings-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .learning-item {
+            background: var(--bg-secondary);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            border-left: 3px solid #d4af37;
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: start;
+            gap: var(--spacing-sm);
+        }
+
+        .learning-item::before {
+            content: "✓";
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .screenshot-section {
+            padding: var(--spacing-2xl) 0;
+            background: var(--bg-secondary);
+        }
+
+        .screenshot-container {
+            background: var(--bg-primary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            border-radius: var(--radius-md);
+        }
+
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 2rem;
+            }
+
+            .project-tagline {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="project-hero">
+        <div class="container">
+            <a href="index.html" class="back-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Voltar ao Portfólio
+            </a>
+            
+            <div class="project-header">
+                <h1>🏛️ Silva & Associados</h1>
+                <p class="project-tagline">Landing Page Institucional - Escritório de Advocacia</p>
+                
+                <div class="project-badges">
+                    <span class="badge">Landing Page</span>
+                    <span class="badge">Design Premium</span>
+                    <span class="badge">Mobile First</span>
+                    <span class="badge">100% Responsivo</span>
+                </div>
+                
+                <div class="project-actions">
+                    <a href="https://gipsy7.github.io/SilvaAssociadosLandingPage/" target="_blank" class="action-btn primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                        </svg>
+                        Visitar Site
+                    </a>
+                    <a href="https://github.com/Gipsy7/SilvaAssociadosLandingPage" target="_blank" class="action-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        Ver Código
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="project-overview">
+        <div class="container">
+            <h2 class="section-title">📋 Visão Geral do Projeto</h2>
+            <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--spacing-xl);">
+                Landing page institucional moderna e profissional desenvolvida para um escritório de advocacia, 
+                com foco em transmitir credibilidade, confiança e excelência técnica. O projeto apresenta um 
+                design elegante e sóbrio, ideal para o segmento jurídico, com elementos visuais sofisticados 
+                e navegação intuitiva.
+            </p>
+
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="overview-card-icon">🎯</div>
+                    <div class="overview-card-title">Objetivo</div>
+                    <div class="overview-card-value">Conversão</div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-card-icon">💼</div>
+                    <div class="overview-card-title">Tipo</div>
+                    <div class="overview-card-value">Institucional</div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-card-icon">📱</div>
+                    <div class="overview-card-title">Responsividade</div>
+                    <div class="overview-card-value">100%</div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-card-icon">⚡</div>
+                    <div class="overview-card-title">Performance</div>
+                    <div class="overview-card-value">Otimizada</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section style="padding: var(--spacing-2xl) 0; background: var(--bg-secondary);">
+        <div class="container">
+            <h2 class="section-title">✨ Principais Funcionalidades</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧭</div>
+                    <h3 class="feature-title">Navegação Inteligente</h3>
+                    <p class="feature-description">
+                        Menu fixo responsivo com efeito glassmorphism em scroll, transições suaves entre seções 
+                        (smooth scroll) e menu hambúrguer animado para dispositivos móveis.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">Design Moderno</h3>
+                    <p class="feature-description">
+                        Hero section com estatísticas visuais (20+ anos, 500+ casos, 98% satisfação), 
+                        animações de partículas flutuantes no background e gradientes sofisticados.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Responsividade Total</h3>
+                    <p class="feature-description">
+                        Layout adaptativo para desktop, tablet e mobile com breakpoints otimizados 
+                        (968px, 768px, 480px), imagens e tipografia escaláveis.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3 class="feature-title">Seções Estratégicas</h3>
+                    <p class="feature-description">
+                        Hero impactante com CTAs duplos, apresentação do escritório, 5 áreas de atuação jurídica, 
+                        formulário de contato funcional e botão WhatsApp fixo.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3 class="feature-title">Elementos Premium</h3>
+                    <p class="feature-description">
+                        Backdrop blur effects (glassmorphism), animações CSS customizadas (fadeIn, particle float, pulse), 
+                        bordas com gradientes dourados e shadow effects multicamadas.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">Integração WhatsApp</h3>
+                    <p class="feature-description">
+                        Botão flutuante com animação pulse para contato direto via WhatsApp, 
+                        facilitando a comunicação instantânea com potenciais clientes.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-stack">
+        <div class="container">
+            <h2 class="section-title">🛠️ Tecnologias Utilizadas</h2>
+            <div class="tech-grid">
+                <div class="tech-item">HTML5</div>
+                <div class="tech-item">CSS3</div>
+                <div class="tech-item">JavaScript</div>
+                <div class="tech-item">Google Fonts</div>
+                <div class="tech-item">Glassmorphism</div>
+                <div class="tech-item">CSS Grid</div>
+                <div class="tech-item">Flexbox</div>
+                <div class="tech-item">CSS Animations</div>
+                <div class="tech-item">Media Queries</div>
+                <div class="tech-item">Git/GitHub</div>
+                <div class="tech-item">GitHub Pages</div>
+                <div class="tech-item">Mobile First</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Highlights Section -->
+    <section class="challenges-section">
+        <div class="container">
+            <h2 class="section-title">🔥 Diferenciais Técnicos</h2>
+            
+            <div class="challenge-item">
+                <div class="challenge-title">⚡ Performance</div>
+                <p class="challenge-text">
+                    Código otimizado sem dependências externas pesadas. Carregamento rápido utilizando 
+                    apenas HTML, CSS e JavaScript vanilla, garantindo excelente performance em todos os dispositivos.
+                </p>
+            </div>
+
+            <div class="challenge-item">
+                <div class="challenge-title">🔍 SEO</div>
+                <p class="challenge-text">
+                    Meta tags completas, estrutura semântica HTML5, headings hierarquizados e 
+                    conteúdo otimizado para mecanismos de busca.
+                </p>
+            </div>
+
+            <div class="challenge-item">
+                <div class="challenge-title">♿ Acessibilidade</div>
+                <p class="challenge-text">
+                    Navegação por teclado funcional, aria-labels apropriados, contraste de cores adequado 
+                    e estrutura semântica para leitores de tela.
+                </p>
+            </div>
+
+            <div class="challenge-item">
+                <div class="challenge-title">🌐 Cross-browser</div>
+                <p class="challenge-text">
+                    Compatível com Chrome, Firefox, Safari e Edge. Testes realizados em múltiplos 
+                    navegadores para garantir consistência visual e funcional.
+                </p>
+            </div>
+
+            <div class="challenge-item">
+                <div class="challenge-title">📱 Mobile-first</div>
+                <p class="challenge-text">
+                    Desenvolvido priorizando dispositivos móveis, com progressive enhancement para 
+                    telas maiores, garantindo experiência otimizada em todos os tamanhos de tela.
+                </p>
+            </div>
+
+            <div class="challenge-item">
+                <div class="challenge-title">🎨 Clean Code</div>
+                <p class="challenge-text">
+                    Organização modular, comentários descritivos, nomenclatura semântica e 
+                    arquitetura de código limpa e manutenível.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+        <div class="container">
+            <h2 class="section-title">📊 Resultados Alcançados</h2>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-icon">⚡</div>
+                    <div class="result-title">100% Responsivo</div>
+                    <p class="result-description">
+                        Funciona perfeitamente em todos os dispositivos e tamanhos de tela
+                    </p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-icon">🎨</div>
+                    <div class="result-title">Design Profissional</div>
+                    <p class="result-description">
+                        Visual elegante e adequado ao público-alvo do segmento jurídico
+                    </p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-icon">🚀</div>
+                    <div class="result-title">Performance Otimizada</div>
+                    <p class="result-description">
+                        Carregamento rápido sem bibliotecas pesadas
+                    </p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-icon">📈</div>
+                    <div class="result-title">Conversão</div>
+                    <p class="result-description">
+                        CTAs estratégicos e múltiplos pontos de contato
+                    </p>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-icon">🌐</div>
+                    <div class="result-title">Online</div>
+                    <p class="result-description">
+                        Site publicado e acessível globalmente via GitHub Pages
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section class="challenges-section">
+        <div class="container">
+            <h2 class="section-title">💡 Desafios e Soluções</h2>
+            
+            <div class="challenge-item">
+                <div class="challenge-subtitle">🎯 Desafio:</div>
+                <p class="challenge-text">
+                    Criar um design moderno mantendo a sobriedade necessária para o setor jurídico, 
+                    equilibrando inovação visual com a seriedade esperada por clientes do segmento.
+                </p>
+                <div class="challenge-subtitle" style="margin-top: var(--spacing-sm);">💡 Solução:</div>
+                <p class="challenge-text">
+                    Paleta de cores elegante (azul escuro + dourado discreto) com animações sutis 
+                    e tipografia profissional (Playfair Display + Lato), transmitindo confiança e sofisticação.
+                </p>
+            </div>
+
+            <div class="challenge-item">
+                <div class="challenge-subtitle">🎯 Desafio:</div>
+                <p class="challenge-text">
+                    Responsividade complexa com múltiplas breakpoints, garantindo experiência 
+                    consistente desde smartphones até monitores 4K.
+                </p>
+                <div class="challenge-subtitle" style="margin-top: var(--spacing-sm);">💡 Solução:</div>
+                <p class="challenge-text">
+                    Sistema de grid adaptativo utilizando CSS Grid e Flexbox, com media queries 
+                    bem estruturadas (968px, 768px, 480px) e abordagem mobile-first.
+                </p>
+            </div>
+
+            <div class="challenge-item">
+                <div class="challenge-subtitle">🎯 Desafio:</div>
+                <p class="challenge-text">
+                    Implementar animações performáticas sem bibliotecas pesadas, mantendo 
+                    suavidade em dispositivos de baixa performance.
+                </p>
+                <div class="challenge-subtitle" style="margin-top: var(--spacing-sm);">💡 Solução:</div>
+                <p class="challenge-text">
+                    CSS animations puro com GPU acceleration (utilizando transform e opacity), 
+                    cubic-bezier para movimento natural e will-change para otimização de rendering.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learnings Section -->
+    <section class="learnings-section">
+        <div class="container">
+            <h2 class="section-title">🎓 Aprendizados</h2>
+            <ul class="learnings-list">
+                <li class="learning-item">
+                    Aprofundamento em CSS Grid e Flexbox para layouts complexos e responsivos de alta qualidade
+                </li>
+                <li class="learning-item">
+                    Implementação de animações CSS avançadas (keyframes, cubic-bezier, GPU acceleration)
+                </li>
+                <li class="learning-item">
+                    Técnicas de glassmorphism e backdrop filters para efeitos visuais modernos
+                </li>
+                <li class="learning-item">
+                    Otimização de performance front-end sem dependências externas
+                </li>
+                <li class="learning-item">
+                    Design system e padrões visuais consistentes para identidade de marca
+                </li>
+                <li class="learning-item">
+                    Workflow Git profissional com commits semânticos e versionamento adequado
+                </li>
+                <li class="learning-item">
+                    Desenvolvimento mobile-first com progressive enhancement para desktop
+                </li>
+                <li class="learning-item">
+                    Implementação de smooth scroll e navegação por âncoras de forma nativa
+                </li>
+                <li class="learning-item">
+                    Criação de componentes reutilizáveis com HTML/CSS/JS vanilla
+                </li>
+                <li class="learning-item">
+                    Publicação e deploy automatizado com GitHub Pages
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Screenshot Section -->
+    <section class="screenshot-section">
+        <div class="container">
+            <h2 class="section-title">📸 Preview do Projeto</h2>
+            <div class="screenshot-container">
+                <img src="assets/images/Silva/silva-preview.png" alt="Silva & Associados - Preview" 
+                     onerror="this.src='https://via.placeholder.com/1200x800/1e3a5f/d4af37?text=Silva+%26+Associados+Landing+Page'">
+                <p style="text-align: center; color: var(--text-secondary); margin-top: var(--spacing-md);">
+                    Layout responsivo com menu fixo, hero impactante, cards interativos e formulário de contato
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Links Section -->
+    <section style="padding: var(--spacing-2xl) 0; text-align: center;">
+        <div class="container">
+            <h2 class="section-title" style="justify-content: center;">🔗 Links do Projeto</h2>
+            <div class="project-actions">
+                <a href="https://gipsy7.github.io/SilvaAssociadosLandingPage/" target="_blank" class="action-btn primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                    </svg>
+                    Visitar Site Ao Vivo
+                </a>
+                <a href="https://github.com/Gipsy7/SilvaAssociadosLandingPage" target="_blank" class="action-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    Ver Repositório no GitHub
+                </a>
+            </div>
+            <p style="color: var(--text-secondary); margin-top: var(--spacing-lg); max-width: 600px; margin-left: auto; margin-right: auto;">
+                Projeto desenvolvido com foco em excelência técnica, design profissional e 
+                experiência do usuário, demonstrando capacidades em front-end moderno e landing pages de conversão.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Mikael Francisco. Desenvolvido com 💜</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
