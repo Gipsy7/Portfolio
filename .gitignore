@@ -1,0 +1,28 @@
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Arquivos temporários
+*.tmp
+*.log
+.cache/
+
+# Node modules (se usar futuramente)
+node_modules/
+package-lock.json
+
+# Arquivos pessoais/sensíveis
+*.env
+.env.local
+
+# Backup files
+*.bak
+*.backup
