@@ -136,15 +136,15 @@ body {
 
 @keyframes float {
     0%, 100% { 
-        transform: translate(0, 0) scale(1) rotate(0deg);
+        transform: translate(0, 0) scale(1);
         opacity: 0.5;
     }
     33% { 
-        transform: translate(30px, -30px) scale(1.1) rotate(120deg);
-        opacity: 0.8;
+        transform: translate(25px, -25px) scale(1.05);
+        opacity: 0.75;
     }
     66% { 
-        transform: translate(-20px, 20px) scale(0.9) rotate(240deg);
+        transform: translate(-18px, 18px) scale(0.97);
         opacity: 0.6;
     }
 }
@@ -153,7 +153,6 @@ body {
     text-align: center;
     position: relative;
     z-index: 1;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
 
@@ -184,7 +183,7 @@ body {
 @keyframes slideInDown {
     from {
         opacity: 0;
-        transform: translateY(-30px);
+        transform: translateY(-20px);
     }
     to {
         opacity: 1;
@@ -221,7 +220,7 @@ body {
 @keyframes slideInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -248,7 +247,7 @@ body {
 }
 
 .hero-links .btn {
-    animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) backwards;
+    animation: popIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 .hero-links .btn:nth-child(1) { animation-delay: 0.7s; }
@@ -258,14 +257,14 @@ body {
 @keyframes popIn {
     0% {
         opacity: 0;
-        transform: scale(0.5) rotate(-5deg);
+        transform: scale(0.75) translateY(8px);
     }
-    70% {
-        transform: scale(1.05) rotate(2deg);
+    60% {
+        transform: scale(1.03) translateY(-2px);
     }
     100% {
         opacity: 1;
-        transform: scale(1) rotate(0deg);
+        transform: scale(1) translateY(0);
     }
 }
 
@@ -825,7 +824,7 @@ body {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(16px);
     }
     to {
         opacity: 1;
@@ -834,7 +833,7 @@ body {
 }
 
 .fade-in {
-    animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     opacity: 1 !important;
 }
 

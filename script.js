@@ -54,6 +54,20 @@ function createParticles() {
         const left = Math.random() * 100;
         const delay = Math.random() * 5;
         const duration = Math.random() * 10 + 15;
+        const driftX = Math.round(Math.random() * 80 - 40);
+        const keyframeName = `floatUp_${i}`;
+        
+        // Keyframe único por partícula
+        const kfStyle = document.createElement('style');
+        kfStyle.textContent = `
+            @keyframes ${keyframeName} {
+                0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+                10%  { opacity: 1; }
+                90%  { opacity: 1; }
+                100% { transform: translateY(-100vh) translateX(${driftX}px) scale(0); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(kfStyle);
         
         particle.style.cssText = `
             position: absolute;
@@ -63,7 +77,7 @@ function createParticles() {
             border-radius: 50%;
             left: ${left}%;
             bottom: -10px;
-            animation: floatUp ${duration}s linear ${delay}s infinite;
+            animation: ${keyframeName} ${duration}s linear ${delay}s infinite;
             box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
         `;
         
@@ -71,28 +85,6 @@ function createParticles() {
     }
     
     hero.appendChild(particlesContainer);
-    
-    // Adiciona CSS para animação
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) translateX(0) scale(1);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px) scale(0);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
 }
 
 createParticles();
@@ -115,8 +107,9 @@ if (hero) {
         
         const heroContent = hero.querySelector('.hero-content');
         if (heroContent) {
+            heroContent.style.transition = 'none';
             heroContent.style.transform = `
-                translate(${xPercent * 10}px, ${yPercent * 10}px)
+                translate(${xPercent * 6}px, ${yPercent * 6}px)
             `;
         }
     });
@@ -124,6 +117,7 @@ if (hero) {
     hero.addEventListener('mouseleave', () => {
         const heroContent = hero.querySelector('.hero-content');
         if (heroContent) {
+            heroContent.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
             heroContent.style.transform = 'translate(0, 0)';
         }
     });
@@ -306,6 +300,21 @@ scrollTopBtn.addEventListener('click', () => {
 */
 
 // ========================================
+// CARD CLICK NAVIGATION
+// ========================================
+
+/**
+ * Redireciona para a página de detalhes ao clicar no card,
+ * exceto quando o clique é em um link ou botão interno.
+ */
+document.querySelectorAll('.project-card[data-href]').forEach(card => {
+    card.addEventListener('click', (e) => {
+        if (e.target.closest('a, button')) return;
+        window.location.href = card.dataset.href;
+    });
+});
+
+// ========================================
 // PROJECT MEDIA HANDLER
 // ========================================
 
@@ -341,9 +350,10 @@ document.querySelectorAll('.project-card').forEach(card => {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
         
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
+        const rotateX = (y - centerY) / 22;
+        const rotateY = (centerX - x) / 22;
         
+        card.style.transition = 'box-shadow var(--transition-normal), border-color var(--transition-normal)';
         card.style.transform = `
             translateY(-8px) 
             scale(1.02) 
@@ -354,6 +364,7 @@ document.querySelectorAll('.project-card').forEach(card => {
     });
     
     card.addEventListener('mouseleave', () => {
+        card.style.transition = 'all var(--transition-normal)';
         card.style.transform = '';
         card.style.transformStyle = '';
     });
