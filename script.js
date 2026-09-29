@@ -1,647 +1,311 @@
-// ========================================
-// SMOOTH SCROLLING
-// ========================================
+/* ========================================
+   PORTFÓLIO — MIKAEL FRANCISCO
+   JavaScript puro, sem dependências.
+   ======================================== */
 
-/**
- * Adiciona smooth scroll para links internos
- */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        
-        // Ignora links vazios ou apenas '#'
-        if (href === '#' || href === '') return;
-        
-        e.preventDefault();
-        
-        const target = document.querySelector(href);
-        if (target) {
+(function () {
+    'use strict';
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ========================================
+    // NAVBAR: sombra ao rolar, menu mobile, seção ativa
+    // ========================================
+
+    const navbar = document.getElementById('navbar');
+    const navToggle = document.querySelector('.navbar-toggle');
+    const navMenu = document.getElementById('navbar-menu');
+
+    if (navbar) {
+        const setNavbarState = () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 12);
+        };
+        setNavbarState();
+        window.addEventListener('scroll', setNavbarState, { passive: true });
+    }
+
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = navMenu.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+            navToggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+        });
+
+        // Fecha o menu ao navegar
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.setAttribute('aria-label', 'Abrir menu');
+            });
+        });
+    }
+
+    // Destaca no menu a seção visível
+    const navLinks = Array.from(document.querySelectorAll('.navbar-menu a[href^="#"]'));
+    const sections = navLinks
+        .map(link => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+    if (sections.length) {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                navLinks.forEach(link => {
+                    link.classList.toggle(
+                        'active',
+                        link.getAttribute('href') === '#' + entry.target.id
+                    );
+                });
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+
+        sections.forEach(section => sectionObserver.observe(section));
+    }
+
+    // ========================================
+    // SMOOTH SCROLL para âncoras internas
+    // ========================================
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || href === '') return;
+
+            const target = document.querySelector(href);
+            if (!target) return;
+
+            e.preventDefault();
             target.scrollIntoView({
-                behavior: 'smooth',
+                behavior: prefersReducedMotion ? 'auto' : 'smooth',
                 block: 'start'
             });
-        }
+        });
     });
-});
 
-// ========================================
-// PARTÍCULAS FLUTUANTES NO HERO
-// ========================================
+    // ========================================
+    // TEMA CLARO / ESCURO
+    // ========================================
 
-/**
- * Cria partículas animadas no hero section
- */
-function createParticles() {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
-    
-    const particlesContainer = document.createElement('div');
-    particlesContainer.className = 'particles';
-    particlesContainer.style.cssText = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        pointer-events: none;
-    `;
-    
-    // Cria 20 partículas
-    for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        const size = Math.random() * 4 + 2;
-        const left = Math.random() * 100;
-        const delay = Math.random() * 5;
-        const duration = Math.random() * 10 + 15;
-        const driftX = Math.round(Math.random() * 80 - 40);
-        const keyframeName = `floatUp_${i}`;
-        
-        // Keyframe único por partícula
-        const kfStyle = document.createElement('style');
-        kfStyle.textContent = `
-            @keyframes ${keyframeName} {
-                0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-                10%  { opacity: 1; }
-                90%  { opacity: 1; }
-                100% { transform: translateY(-100vh) translateX(${driftX}px) scale(0); opacity: 0; }
+    const themeToggle = document.querySelector('.theme-toggle');
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+
+            document.documentElement.setAttribute('data-theme', next);
+
+            const themeColor = document.querySelector('meta[name="theme-color"]');
+            if (themeColor) {
+                themeColor.setAttribute('content', next === 'dark' ? '#0a0a0c' : '#ffffff');
             }
-        `;
-        document.head.appendChild(kfStyle);
-        
-        particle.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.8), rgba(139, 92, 246, 0.4));
-            border-radius: 50%;
-            left: ${left}%;
-            bottom: -10px;
-            animation: ${keyframeName} ${duration}s linear ${delay}s infinite;
-            box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-        `;
-        
-        particlesContainer.appendChild(particle);
-    }
-    
-    hero.appendChild(particlesContainer);
-}
 
-createParticles();
-
-// ========================================
-// PARALLAX EFFECT NO MOUSE
-// ========================================
-
-/**
- * Efeito parallax suave seguindo o mouse
- */
-const hero = document.querySelector('.hero');
-if (hero) {
-    hero.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const { innerWidth, innerHeight } = window;
-        
-        const xPercent = (clientX / innerWidth - 0.5) * 2;
-        const yPercent = (clientY / innerHeight - 0.5) * 2;
-        
-        const heroContent = hero.querySelector('.hero-content');
-        if (heroContent) {
-            heroContent.style.transition = 'none';
-            heroContent.style.transform = `
-                translate(${xPercent * 6}px, ${yPercent * 6}px)
-            `;
-        }
-    });
-    
-    hero.addEventListener('mouseleave', () => {
-        const heroContent = hero.querySelector('.hero-content');
-        if (heroContent) {
-            heroContent.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
-            heroContent.style.transform = 'translate(0, 0)';
-        }
-    });
-}
-
-// ========================================
-// INTERSECTION OBSERVER (Animações ao scroll)
-// ========================================
-
-/**
- * Observa elementos e adiciona animação quando entram na viewport
- */
-const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // Remove opacity inline antes de adicionar a classe
-            entry.target.style.opacity = '';
-            entry.target.classList.add('fade-in');
-            
-            // Adiciona efeito especial para section titles
-            if (entry.target.classList.contains('section-title')) {
-                entry.target.style.animation = 'fadeIn 0.8s ease-out forwards, pulseGlow 2s ease-in-out 0.8s';
+            try {
+                localStorage.setItem('theme', next);
+            } catch (e) {
+                /* modo privado: segue sem persistir */
             }
-            
-            // Garante que o elemento permaneça visível após a animação
-            entry.target.addEventListener('animationend', () => {
-                entry.target.style.opacity = '1';
-            }, { once: true });
-            
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observa cards de projetos
-document.querySelectorAll('.project-card').forEach(card => {
-    card.style.opacity = '0';
-    observer.observe(card);
-});
-
-// Observa itens de habilidades
-document.querySelectorAll('.skill-item').forEach(skill => {
-    skill.style.opacity = '0';
-    observer.observe(skill);
-});
-
-// Observa itens de contato
-document.querySelectorAll('.contact-item').forEach(contact => {
-    contact.style.opacity = '0';
-    observer.observe(contact);
-});
-
-// Observa títulos de seções
-document.querySelectorAll('.section-title').forEach(title => {
-    observer.observe(title);
-});
-
-// ========================================
-// TYPED EFFECT NO SUBTÍTULO
-// ========================================
-
-/**
- * Efeito de digitação no subtítulo do hero
- */
-function typeWriter() {
-    const subtitle = document.querySelector('.hero-subtitle');
-    if (!subtitle) return;
-    
-    const originalText = subtitle.textContent;
-    subtitle.textContent = '';
-    subtitle.style.opacity = '1';
-    
-    let charIndex = 0;
-    
-    function type() {
-        if (charIndex < originalText.length) {
-            subtitle.textContent += originalText.charAt(charIndex);
-            charIndex++;
-            setTimeout(type, 80);
-        } else {
-            // Adiciona cursor piscante após terminar
-            subtitle.innerHTML += '<span style="animation: blink 1s infinite;">|</span>';
-            
-            // Remove cursor após 3 segundos
-            setTimeout(() => {
-                const cursor = subtitle.querySelector('span');
-                if (cursor) cursor.remove();
-            }, 3000);
-        }
+        });
     }
-    
-    // Aguarda 1 segundo antes de começar
-    setTimeout(type, 1000);
-    
-    // Adiciona CSS para cursor piscante
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-    `;
-    if (!document.querySelector('style[data-blink]')) {
-        style.setAttribute('data-blink', 'true');
-        document.head.appendChild(style);
-    }
-}
 
-// Inicia efeito após carregamento
-window.addEventListener('load', typeWriter);
+    // ========================================
+    // ANIMAÇÃO DE ENTRADA AO ROLAR
+    // ========================================
 
-// ========================================
-// SCROLL TO TOP
-// ========================================
+    const revealTargets = document.querySelectorAll(
+        '.project-card, .skill-item, .contact-item, .timeline-item, .feature-card, ' +
+        '.stat-card, .overview-card, .result-card, .gallery-item, .learning-item, .case-nav-card'
+    );
 
-/**
- * Botão de voltar ao topo (opcional)
- * Descomente o código abaixo se quiser adicionar um botão de scroll to top
- */
-
-/*
-// Cria botão de scroll to top
-const scrollTopBtn = document.createElement('button');
-scrollTopBtn.innerHTML = '↑';
-scrollTopBtn.className = 'scroll-top-btn';
-scrollTopBtn.setAttribute('aria-label', 'Voltar ao topo');
-document.body.appendChild(scrollTopBtn);
-
-// Mostra/esconde botão baseado na posição do scroll
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        scrollTopBtn.classList.add('visible');
+    if (prefersReducedMotion) {
+        revealTargets.forEach(el => el.classList.add('visible'));
     } else {
-        scrollTopBtn.classList.remove('visible');
+        revealTargets.forEach(el => el.classList.add('reveal'));
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (!entry.isIntersecting) return;
+                // Escalona levemente os itens que entram juntos
+                entry.target.style.transitionDelay = Math.min(index * 60, 240) + 'ms';
+                entry.target.classList.add('visible');
+                revealObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+        revealTargets.forEach(el => revealObserver.observe(el));
     }
-});
 
-// Ação do botão
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+    // ========================================
+    // CARDS DE PROJETO: vídeo no hover
+    // ========================================
+
+    document.querySelectorAll('.project-image video, .gallery-item video').forEach(video => {
+        const container = video.closest('.project-card, .gallery-item') || video;
+
+        container.addEventListener('mouseenter', () => {
+            video.play().catch(() => { /* autoplay bloqueado: ignora */ });
+        });
+
+        container.addEventListener('mouseleave', () => {
+            video.pause();
+            video.currentTime = 0;
+        });
     });
-});
 
-// CSS para o botão (adicione ao style.css se quiser usar):
-.scroll-top-btn {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: var(--accent-primary);
-    color: white;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
+    // ========================================
+    // LIGHTBOX ACESSÍVEL (clique, teclado, Esc)
+    // ========================================
 
-.scroll-top-btn.visible {
-    opacity: 1;
-    visibility: visible;
-}
+    const zoomables = document.querySelectorAll(
+        '.project-image img, .gallery-item img, .screenshot-container img, .project-figure img'
+    );
 
-.scroll-top-btn:hover {
-    background-color: var(--accent-hover);
-    transform: translateY(-3px);
-}
-*/
+    if (zoomables.length) {
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox';
+        lightbox.setAttribute('role', 'dialog');
+        lightbox.setAttribute('aria-modal', 'true');
+        lightbox.setAttribute('aria-label', 'Visualização ampliada');
+        lightbox.innerHTML =
+            '<button class="lightbox-close" aria-label="Fechar visualização">&times;</button>' +
+            '<img class="lightbox-media" alt="">';
+        document.body.appendChild(lightbox);
 
-// ========================================
-// CARD CLICK NAVIGATION
-// ========================================
+        const lightboxImg = lightbox.querySelector('.lightbox-media');
+        const closeBtn = lightbox.querySelector('.lightbox-close');
+        let lastFocused = null;
 
-/**
- * Redireciona para a página de detalhes ao clicar no card,
- * exceto quando o clique é em um link ou botão interno.
- */
-document.querySelectorAll('.project-card[data-href]').forEach(card => {
-    card.addEventListener('click', (e) => {
-        if (e.target.closest('a, button')) return;
-        window.location.href = card.dataset.href;
-    });
-});
+        const openLightbox = (src, alt) => {
+            lastFocused = document.activeElement;
+            lightboxImg.src = src;
+            lightboxImg.alt = alt || '';
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            closeBtn.focus();
+        };
 
-// ========================================
-// PROJECT MEDIA HANDLER
-// ========================================
+        const closeLightbox = () => {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
+            if (lastFocused) lastFocused.focus();
+        };
 
-/**
- * Garante que vídeos e GIFs sejam reproduzidos corretamente
- */
-document.querySelectorAll('.project-image video').forEach(video => {
-    // Autoplay ao passar o mouse
-    video.addEventListener('mouseenter', () => {
-        video.play().catch(e => console.log('Video play error:', e));
-    });
-    
-    // Pausa ao sair
-    video.addEventListener('mouseleave', () => {
-        video.pause();
-        video.currentTime = 0;
-    });
-});
+        zoomables.forEach(img => {
+            // Torna a imagem acionável por teclado sem virar link
+            img.setAttribute('tabindex', '0');
+            img.setAttribute('role', 'button');
+            img.setAttribute('aria-label', 'Ampliar imagem: ' + (img.alt || 'imagem do projeto'));
 
-// ========================================
-// 3D TILT EFFECT NOS CARDS
-// ========================================
+            img.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openLightbox(img.currentSrc || img.src, img.alt);
+            });
 
-/**
- * Efeito 3D nos project cards ao mover o mouse
- */
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 22;
-        const rotateY = (centerX - x) / 22;
-        
-        card.style.transition = 'box-shadow var(--transition-normal), border-color var(--transition-normal)';
-        card.style.transform = `
-            translateY(-8px) 
-            scale(1.02) 
-            rotateX(${rotateX}deg) 
-            rotateY(${rotateY}deg)
-        `;
-        card.style.transformStyle = 'preserve-3d';
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transition = 'all var(--transition-normal)';
-        card.style.transform = '';
-        card.style.transformStyle = '';
-    });
-});
+            img.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLightbox(img.currentSrc || img.src, img.alt);
+                }
+            });
+        });
 
-// ========================================
-// HOVER GLOW EFFECT
-// ========================================
+        closeBtn.addEventListener('click', closeLightbox);
 
-/**
- * Adiciona efeito de brilho seguindo o cursor nos cards
- */
-document.querySelectorAll('.project-card, .skill-item').forEach(element => {
-    element.addEventListener('mousemove', (e) => {
-        const rect = element.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        element.style.setProperty('--mouse-x', `${x}px`);
-        element.style.setProperty('--mouse-y', `${y}px`);
-    });
-});
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
 
-// Adiciona CSS para o efeito de brilho
-const glowStyle = document.createElement('style');
-glowStyle.textContent = `
-    .project-card,
-    .skill-item {
-        position: relative;
-    }
-    
-    .project-card::after,
-    .skill-item::after {
-        content: '';
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%);
-        top: var(--mouse-y, 50%);
-        left: var(--mouse-x, 50%);
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.3s;
-        z-index: -1;
-    }
-    
-    .project-card:hover::after,
-    .skill-item:hover::after {
-        opacity: 1;
-    }
-    
-    .project-content {
-        position: relative;
-        z-index: 2;
-    }
-`;
-document.head.appendChild(glowStyle);
-
-// ========================================
-// IMAGE HOVER PREVIEW
-// ========================================
-
-/**
- * Configura preview de imagem ao passar o mouse
- */
-document.querySelectorAll('.project-image').forEach(imageContainer => {
-    const img = imageContainer.querySelector('img, video');
-    
-    if (img) {
-        // Define a imagem como variável CSS para usar no ::after
-        const imgSrc = img.tagName === 'VIDEO' ? img.poster || img.src : img.src;
-        imageContainer.style.setProperty('--preview-image', `url(${imgSrc})`);
-    }
-});
-
-// ========================================
-// FORMULÁRIO DE CONTATO (Opcional)
-// ========================================
-
-/**
- * Se você adicionar um formulário de contato no futuro,
- * pode usar este código como base
- */
-
-/*
-const contactForm = document.querySelector('#contact-form');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-        
-        try {
-            // Aqui você pode enviar para um backend ou serviço como Formspree
-            console.log('Dados do formulário:', data);
-            
-            // Exemplo de envio (substitua pela sua URL)
-            // const response = await fetch('SUA_URL_AQUI', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(data)
-            // });
-            
-            alert('Mensagem enviada com sucesso!');
-            contactForm.reset();
-            
-        } catch (error) {
-            console.error('Erro ao enviar:', error);
-            alert('Erro ao enviar mensagem. Tente novamente.');
-        }
-    });
-}
-*/
-
-// ========================================
-// THEME TOGGLE (Dark/Light Mode - Opcional)
-// ========================================
-
-/**
- * Alterna entre tema claro e escuro
- * Descomente se quiser adicionar essa funcionalidade
- */
-
-/*
-const themeToggle = document.createElement('button');
-themeToggle.className = 'theme-toggle';
-themeToggle.innerHTML = '🌙';
-themeToggle.setAttribute('aria-label', 'Alternar tema');
-document.body.appendChild(themeToggle);
-
-// Verifica preferência salva
-const currentTheme = localStorage.getItem('theme') || 'dark';
-document.documentElement.setAttribute('data-theme', currentTheme);
-
-themeToggle.addEventListener('click', () => {
-    const theme = document.documentElement.getAttribute('data-theme');
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    themeToggle.innerHTML = newTheme === 'dark' ? '🌙' : '☀️';
-});
-*/
-
-// ========================================
-// PERFORMANCE & LAZY LOADING
-// ========================================
-
-/**
- * Lazy loading de imagens para melhor performance
- */
-if ('loading' in HTMLImageElement.prototype) {
-    // Navegador suporta lazy loading nativo
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    images.forEach(img => {
-        img.src = img.dataset.src || img.src;
-    });
-} else {
-    // Fallback para navegadores mais antigos
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-    document.body.appendChild(script);
-}
-
-// ========================================
-// SCROLL PROGRESS BAR
-// ========================================
-
-/**
- * Cria barra de progresso de leitura
- */
-function createScrollProgressBar() {
-    const progressBar = document.createElement('div');
-    progressBar.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 0%;
-        height: 3px;
-        background: linear-gradient(90deg, #6366f1, #8b5cf6, #6366f1);
-        background-size: 200% 100%;
-        animation: gradientShift 3s ease infinite;
-        z-index: 10000;
-        transition: width 0.1s ease-out;
-        box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-    `;
-    
-    document.body.appendChild(progressBar);
-    
-    window.addEventListener('scroll', () => {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-        progressBar.style.width = `${scrollPercent}%`;
-    });
-}
-
-createScrollProgressBar();
-
-// ========================================
-// EASTER EGG - KONAMI CODE
-// ========================================
-
-/**
- * Easter egg divertido com Konami Code
- */
-let konamiCode = [];
-const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // ↑↑↓↓←→←→BA
-
-document.addEventListener('keydown', (e) => {
-    konamiCode.push(e.keyCode);
-    konamiCode = konamiCode.slice(-10);
-    
-    if (konamiCode.join(',') === konamiSequence.join(',')) {
-        // Ativa modo party 🎉
-        document.body.style.animation = 'rainbow 2s linear infinite';
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes rainbow {
-                0% { filter: hue-rotate(0deg); }
-                100% { filter: hue-rotate(360deg); }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+                closeLightbox();
             }
-        `;
-        document.head.appendChild(style);
-        
-        // Mostra mensagem
-        const message = document.createElement('div');
-        message.textContent = '🎉 PARTY MODE ACTIVATED! 🎉';
-        message.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 2rem 3rem;
-            border-radius: 1rem;
-            font-size: 2rem;
-            font-weight: bold;
-            z-index: 10001;
-            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-        `;
-        
-        document.body.appendChild(message);
-        
-        setTimeout(() => {
-            message.style.animation = 'fadeOut 0.5s ease-out';
-            setTimeout(() => {
-                message.remove();
-                document.body.style.animation = '';
-            }, 500);
-        }, 3000);
+        });
     }
-});
 
-// ========================================
-// LOG DE INICIALIZAÇÃO
-// ========================================
+    // ========================================
+    // BARRA DE PROGRESSO DE LEITURA
+    // ========================================
 
-console.log('%c🚀 Portfólio carregado com sucesso!', 'color: #6366f1; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 4px rgba(99, 102, 241, 0.3);');
-console.log('%c💜 Desenvolvido com JavaScript puro', 'color: #8b5cf6; font-size: 14px;');
-console.log('%c✨ Animações e efeitos especiais ativos', 'color: #a78bfa; font-size: 12px;');
-console.log('%c🎮 Easter egg: Tente o Konami Code (↑↑↓↓←→←→BA)', 'color: #c4b5fd; font-size: 10px; font-style: italic;');
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(progressBar);
 
-// ========================================
-// TRACKING DE PERFORMANCE
-// ========================================
+    const updateProgress = () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+        progressBar.style.width = percent + '%';
+    };
 
-window.addEventListener('load', () => {
-    const loadTime = performance.now();
-    console.log(`%c⚡ Tempo de carregamento: ${Math.round(loadTime)}ms`, 'color: #10b981; font-size: 12px;');
-});
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+
+    // ========================================
+    // BOTÃO FLUTUANTE DE WHATSAPP
+    // ========================================
+
+    const WHATSAPP_URL = 'https://wa.me/5547996915224?text=' +
+        encodeURIComponent('Olá Mikael! Vi seu portfólio e gostaria de conversar.');
+
+    const whatsappFab = document.createElement('a');
+    whatsappFab.className = 'whatsapp-fab';
+    whatsappFab.href = WHATSAPP_URL;
+    whatsappFab.target = '_blank';
+    whatsappFab.rel = 'noopener';
+    whatsappFab.setAttribute('aria-label', 'Conversar no WhatsApp');
+    whatsappFab.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' +
+        '<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.885 3.488"/>' +
+        '</svg><span class="whatsapp-fab-label">Fale comigo</span>';
+    document.body.appendChild(whatsappFab);
+
+    // ========================================
+    // BOTÃO VOLTAR AO TOPO
+    // ========================================
+
+    const scrollTopBtn = document.createElement('button');
+    scrollTopBtn.className = 'scroll-top-btn';
+    scrollTopBtn.setAttribute('aria-label', 'Voltar ao topo');
+    scrollTopBtn.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">' +
+        '<path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+    document.body.appendChild(scrollTopBtn);
+
+    window.addEventListener('scroll', () => {
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+
+    // ========================================
+    // EASTER EGG — KONAMI CODE
+    // ========================================
+
+    const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+                            'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiInput = [];
+
+    document.addEventListener('keydown', (e) => {
+        konamiInput.push(e.key.length === 1 ? e.key.toLowerCase() : e.key);
+        konamiInput = konamiInput.slice(-konamiSequence.length);
+
+        if (konamiInput.join(',') !== konamiSequence.join(',')) return;
+
+        document.body.classList.add('party-mode');
+
+        const message = document.createElement('div');
+        message.className = 'party-message';
+        message.textContent = '🎉 PARTY MODE 🎉';
+        document.body.appendChild(message);
+
+        setTimeout(() => {
+            message.remove();
+            document.body.classList.remove('party-mode');
+        }, 3000);
+    });
+})();
