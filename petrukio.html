@@ -3,288 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Petrukio - Sistema SaaS de gestão para Pet Shops com arquitetura multi-tenant">
-    <title>Petrukio - Detalhes do Projeto</title>
+
+    <title>Petrukio — SaaS multi-tenant em .NET | Mikael Francisco</title>
+    <meta name="description" content="Case study: SaaS multi-tenant para pet shops com API REST em .NET, front-end Next.js 14 + TypeScript, i18n em 3 idiomas e WhatsApp Business.">
+    <meta name="author" content="Mikael Francisco">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0a0a0c">
+
+    <link rel="canonical" href="https://mikaelfrancisco.vercel.app/petrukio">
+    <link rel="alternate" hreflang="pt-BR" href="https://mikaelfrancisco.vercel.app/petrukio">
+    <link rel="alternate" hreflang="x-default" href="https://mikaelfrancisco.vercel.app/petrukio">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Mikael Francisco">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="Petrukio — SaaS multi-tenant para pet shops em .NET">
+    <meta property="og:description" content="Case study: SaaS multi-tenant para pet shops com API REST em .NET, front-end Next.js 14 + TypeScript, i18n em 3 idiomas e WhatsApp Business.">
+    <meta property="og:url" content="https://mikaelfrancisco.vercel.app/petrukio">
+    <meta property="og:image" content="https://mikaelfrancisco.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Petrukio — SaaS multi-tenant para pet shops em .NET">
+    <meta name="twitter:description" content="Case study: SaaS multi-tenant para pet shops com API REST em .NET, front-end Next.js 14 + TypeScript, i18n em 3 idiomas e WhatsApp Business.">
+    <meta name="twitter:image" content="https://mikaelfrancisco.vercel.app/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Estilos específicos para a página de detalhes */
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-primary);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: var(--spacing-lg);
-            transition: all var(--transition-fast);
-        }
 
-        .back-button:hover {
-            gap: 0.75rem;
-            color: var(--accent-hover);
-        }
-
-        .project-hero {
-            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
-            padding: var(--spacing-2xl) 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .project-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .project-header h1 {
-            font-size: 3rem;
-            margin-bottom: var(--spacing-sm);
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .project-tagline {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .project-badges {
-            display: flex;
-            gap: var(--spacing-sm);
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .badge {
-            padding: 0.4rem 1rem;
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: #22c55e;
-            font-weight: 500;
-        }
-
-        .project-actions {
-            display: flex;
-            gap: var(--spacing-md);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.875rem 1.75rem;
-            background: rgba(34, 197, 94, 0.1);
-            border: 2px solid #22c55e;
-            color: #22c55e;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all var(--transition-fast);
-        }
-
-        .action-btn:hover {
-            background: #22c55e;
-            color: var(--bg-primary);
-            transform: translateY(-2px);
-        }
-
-        .action-btn.primary {
-            background: #22c55e;
-            color: var(--bg-primary);
-        }
-
-        .action-btn.primary:hover {
-            background: #16a34a;
-            border-color: #16a34a;
-        }
-
-        .content-section {
-            padding: var(--spacing-2xl) 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .content-section:last-child {
-            border-bottom: none;
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: var(--spacing-lg);
-            color: var(--text-primary);
-        }
-
-        .subsection-title {
-            font-size: 1.5rem;
-            margin: var(--spacing-lg) 0 var(--spacing-md);
-            color: var(--accent-primary);
-        }
-
-        .text-content {
-            line-height: 1.8;
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .highlight-box {
-            background: rgba(34, 197, 94, 0.05);
-            border-left: 4px solid #22c55e;
-            padding: var(--spacing-lg);
-            margin: var(--spacing-lg) 0;
-            border-radius: 4px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--spacing-md);
-            margin: var(--spacing-lg) 0;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: var(--spacing-lg);
-            transition: all var(--transition-fast);
-        }
-
-        .feature-card:hover {
-            border-color: #22c55e;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .feature-title {
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .feature-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--spacing-sm);
-            margin: var(--spacing-md) 0;
-        }
-
-        .tech-item {
-            padding: 0.5rem 1rem;
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            border-radius: 6px;
-            color: #22c55e;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--spacing-md);
-            margin: var(--spacing-lg) 0;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: var(--spacing-lg);
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #22c55e;
-            display: block;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .code-block {
-            background: #0a0a0a;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: var(--spacing-lg);
-            margin: var(--spacing-lg) 0;
-            overflow-x: auto;
-        }
-
-        .code-block pre {
-            margin: 0;
-            color: #22c55e;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .challenge-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .challenge-item {
-            padding: var(--spacing-md);
-            margin-bottom: var(--spacing-sm);
-            background: rgba(255, 255, 255, 0.02);
-            border-left: 3px solid #22c55e;
-            border-radius: 4px;
-        }
-
-        .challenge-item strong {
-            color: #22c55e;
-            display: block;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        ul.simple-list {
-            margin-left: var(--spacing-lg);
-            color: var(--text-secondary);
-        }
-
-        ul.simple-list li {
-            margin-bottom: var(--spacing-xs);
-        }
-
-        @media (max-width: 768px) {
-            .project-header h1 {
-                font-size: 2rem;
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
             }
+        })();
+    </script>
 
-            .project-tagline {
-                font-size: 1.1rem;
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "Petrukio",
+                "applicationCategory": "BusinessApplication",
+                "description": "Case study do Petrukio: sistema SaaS multi-tenant para pet shops, com API REST em .NET, front-end Next.js 14 + TypeScript, i18n em 3 idiomas e integração WhatsApp Business.",
+                "url": "https://petrukio-app.vercel.app",
+                "image": "https://mikaelfrancisco.vercel.app/og-image.png",
+                "operatingSystem": "Web",
+                "author": {
+                    "@type": "Person",
+                    "name": "Mikael Francisco",
+                    "url": "https://mikaelfrancisco.vercel.app/"
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://mikaelfrancisco.vercel.app/" },
+                    { "@type": "ListItem", "position": 2, "name": "Petrukio", "item": "https://mikaelfrancisco.vercel.app/petrukio" }
+                ]
             }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+        ]
+    }
+    </script>
 </head>
-<body>
-    <div class="container" style="padding-top: var(--spacing-lg);">
+<body data-project="petrukio">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+    <nav class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <a href="index.html" class="navbar-brand">
+                <span class="navbar-mark">MF</span>
+                <span class="navbar-name">Mikael Francisco</span>
+            </a>
+            <button class="navbar-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li><a href="index.html#projects">Projetos</a></li>
+                <li><a href="index.html#experience">Experiência</a></li>
+                <li><a href="index.html#about">Sobre</a></li>
+                <li><a href="index.html#contact">Contato</a></li>
+                <li>
+                    <button class="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+                        <svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                        <svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main">
+
+    <div class="container case-topbar">
         <a href="index.html" class="back-button">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -339,7 +174,7 @@
     <!-- Overview -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title">Visão Geral do Projeto</h2>
+            <h2 class="case-section-title">Visão Geral do Projeto</h2>
             
             <div class="highlight-box">
                 <p class="text-content" style="margin-bottom: 0;">
@@ -354,6 +189,13 @@
                 lidar com confirmações via telefone e organizar dados de clientes/pets de forma eficiente. Petrukio automatiza todo esse 
                 fluxo, reduzindo no-shows e otimizando o tempo da equipe.
             </p>
+
+            <figure class="project-figure">
+                <img src="assets/images/Petrukio/petrukiologin.webp"
+                     alt="Tela de login do Petrukio, com identidade visual do sistema e seletor de idioma"
+                     loading="lazy" decoding="async">
+                <figcaption>Tela de autenticação: entrada única para os três idiomas suportados pelo sistema.</figcaption>
+            </figure>
 
             <div class="stats-grid">
                 <div class="stat-card">
@@ -379,35 +221,35 @@
     <!-- Technologies -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title">Stack Tecnológica</h2>
+            <h2 class="case-section-title">Stack Tecnológica</h2>
 
             <h3 class="subsection-title">Frontend</h3>
-            <div class="tech-stack">
-                <span class="tech-item">Next.js 14</span>
-                <span class="tech-item">React 18</span>
-                <span class="tech-item">TypeScript 5</span>
-                <span class="tech-item">Tailwind CSS</span>
-                <span class="tech-item">i18next</span>
-                <span class="tech-item">Context API</span>
+            <div class="tech-chips">
+                <span class="tech-chip">Next.js 14</span>
+                <span class="tech-chip">React 18</span>
+                <span class="tech-chip">TypeScript 5</span>
+                <span class="tech-chip">Tailwind CSS</span>
+                <span class="tech-chip">i18next</span>
+                <span class="tech-chip">Context API</span>
             </div>
 
             <h3 class="subsection-title">Backend</h3>
-            <div class="tech-stack">
-                <span class="tech-item">.NET 10</span>
-                <span class="tech-item">C# 14</span>
-                <span class="tech-item">ASP.NET Core</span>
-                <span class="tech-item">Entity Framework Core 9</span>
-                <span class="tech-item">PostgreSQL</span>
-                <span class="tech-item">JWT Authentication</span>
+            <div class="tech-chips">
+                <span class="tech-chip">.NET 10</span>
+                <span class="tech-chip">C# 14</span>
+                <span class="tech-chip">ASP.NET Core</span>
+                <span class="tech-chip">Entity Framework Core 9</span>
+                <span class="tech-chip">PostgreSQL</span>
+                <span class="tech-chip">JWT Authentication</span>
             </div>
 
             <h3 class="subsection-title">Integrações & DevOps</h3>
-            <div class="tech-stack">
-                <span class="tech-item">WhatsApp Business API</span>
-                <span class="tech-item">Docker</span>
-                <span class="tech-item">Render.com</span>
-                <span class="tech-item">Vercel</span>
-                <span class="tech-item">Scalar API Docs</span>
+            <div class="tech-chips">
+                <span class="tech-chip">WhatsApp Business API</span>
+                <span class="tech-chip">Docker</span>
+                <span class="tech-chip">Render.com</span>
+                <span class="tech-chip">Vercel</span>
+                <span class="tech-chip">Scalar API Docs</span>
             </div>
         </div>
     </section>
@@ -415,7 +257,7 @@
     <!-- Features -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title">Funcionalidades Principais</h2>
+            <h2 class="case-section-title">Funcionalidades Principais</h2>
 
             <div class="feature-grid">
                 <div class="feature-card">
@@ -496,7 +338,7 @@
     <!-- Architecture -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title">Arquitetura e Padrões</h2>
+            <h2 class="case-section-title">Arquitetura e Padrões</h2>
 
             <h3 class="subsection-title">Frontend Architecture</h3>
             <div class="code-block">
@@ -539,7 +381,7 @@
     <!-- Technical Challenges -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title">Desafios Técnicos Superados</h2>
+            <h2 class="case-section-title">Desafios Técnicos Superados</h2>
 
             <ul class="challenge-list">
                 <li class="challenge-item">
@@ -585,7 +427,7 @@
     <!-- API Highlights -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title">Destaques da API REST</h2>
+            <h2 class="case-section-title">Destaques da API REST</h2>
 
             <div class="highlight-box">
                 <p class="text-content">
@@ -622,7 +464,7 @@
     <!-- Results -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title">Resultados e Impacto</h2>
+            <h2 class="case-section-title">Resultados e Impacto</h2>
 
             <div class="feature-grid">
                 <div class="feature-card">
@@ -659,7 +501,7 @@
     <!-- Learning -->
     <section class="content-section">
         <div class="container">
-            <h2 class="section-title">Aprendizados e Skills Demonstradas</h2>
+            <h2 class="case-section-title">Aprendizados e Skills Demonstradas</h2>
 
             <div class="text-content">
                 <p>Este projeto me permitiu aprofundar conhecimentos em:</p>
@@ -712,7 +554,7 @@
     <!-- Footer Actions -->
     <section class="content-section" style="border-bottom: none;">
         <div class="container" style="text-align: center;">
-            <h2 class="section-title">Explore o Projeto</h2>
+            <h2 class="case-section-title">Explore o Projeto</h2>
             <div class="project-actions">
                 <a href="https://petrukio-app.vercel.app" target="_blank" class="action-btn primary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -726,6 +568,32 @@
                         <polyline points="14 2 14 8 20 8"/>
                     </svg>
                     Ver Documentação API
+                </a>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Outros projetos -->
+    <section class="case-nav">
+        <div class="container">
+            <h2 class="case-section-title">Outros projetos</h2>
+            <div class="case-nav-grid">
+                <a href="rollflix.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🎬 RollFlix</p>
+                    <p class="feature-description">App Flutter com Firebase e TMDb</p>
+                </a>
+                <a href="silva.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🏛️ Silva & Associados</p>
+                    <p class="feature-description">Landing page de conversão</p>
+                </a>
+                <a href="index.html#projects" class="case-nav-card">
+                    <span class="case-nav-label">Voltar</span>
+                    <p class="case-nav-title">← Todos os projetos</p>
+                    <p class="feature-description">Ver o portfólio completo</p>
                 </a>
             </div>
         </div>

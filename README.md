@@ -1,169 +1,93 @@
-# 🚀 Portfólio Pessoal
+# Portfólio — Mikael Francisco
 
-Site de portfólio moderno e responsivo desenvolvido com **HTML, CSS e JavaScript puro**.
+Site pessoal de **Mikael Francisco**, desenvolvedor backend .NET.
+HTML, CSS e JavaScript puro — sem framework, sem build step.
 
-## ✨ Características
+🔗 **[mikaelfrancisco.vercel.app](https://mikaelfrancisco.vercel.app)**
 
-- ✅ Design moderno com tema dark
-- ✅ Totalmente responsivo (mobile e desktop)
-- ✅ Animações suaves ao scroll
-- ✅ Cards de projetos interativos
-- ✅ Seções: Hero, Projetos, Sobre, Contato
-- ✅ Código limpo e comentado
-- ✅ Sem dependências de frameworks
-
-## 📁 Estrutura do Projeto
+## Estrutura
 
 ```
 Portfolio/
-├── index.html          # Estrutura HTML principal
-├── style.css           # Estilos CSS
-├── script.js           # JavaScript
-├── assets/
-│   ├── images/         # Imagens dos projetos
-│   ├── gifs/           # GIFs animados
-│   └── videos/         # Vídeos de demonstração
-└── README.md           # Este arquivo
+├── index.html              # Home: hero, projetos, experiência, sobre, contato
+├── petrukio.html           # Case study — SaaS multi-tenant (.NET + Next.js)
+├── rollflix.html           # Case study — app Flutter
+├── silva.html              # Case study — landing page jurídica
+├── style.css               # Folha de estilo única (tokens + componentes + case studies)
+├── script.js               # Navbar, tema, lightbox, animações de scroll
+│
+├── robots.txt              # Libera crawl + aponta o sitemap
+├── sitemap.xml             # As 4 URLs (atualize <lastmod> ao publicar mudanças)
+├── site.webmanifest        # PWA / ícones
+├── vercel.json             # cleanUrls, cache de assets, headers de segurança
+├── og-image.png            # Cartão de compartilhamento 1200×630
+├── favicon.svg · favicon-32.png · apple-touch-icon.png · icon-192.png · icon-512.png
+│
+├── PROMOCAO.md             # ⭐ Checklist de divulgação e SEO
+└── assets/
+    ├── curriculo-mikael-francisco-2026.pdf
+    ├── video/              # Demos em MP4 (convertidas dos GIFs originais)
+    └── images/             # Screenshots em WebP + posters dos vídeos
 ```
 
-## 🎨 Personalização
+## Rodar localmente
 
-### 1. Informações Pessoais
+```bash
+python -m http.server 8000
+# abre http://localhost:8000
+```
 
-Edite o [index.html](index.html) e substitua:
+Ou use a extensão **Live Server** do VS Code (já configurada na porta 5501).
 
-- `"Seu Nome"` - Seu nome completo
-- `"Desenvolvedor Backend .NET"` - Seu título profissional
-- Links do GitHub, LinkedIn e currículo
-- Email e informações de contato
+## Como o CSS está organizado
 
-### 2. Projetos
+Tudo vive em `style.css` — as páginas de case study **não** têm mais `<style>` inline.
 
-No [index.html](index.html), encontre a seção `<section id="projects">` e edite os cards:
-
-- **Imagens**: Substitua os placeholders por imagens reais dos seus projetos
-- **Título**: Nome do projeto
-- **Descrição**: Breve descrição do que o projeto faz
-- **Tecnologias**: Tags com as tecnologias utilizadas
-- **Links**: URLs do GitHub e demo
-
-### 3. Adicionar Imagens/Vídeos
-
-Coloque seus arquivos nas pastas:
-
-- `assets/images/` - Imagens estáticas (.jpg, .png, .webp)
-- `assets/gifs/` - GIFs animados
-- `assets/videos/` - Vídeos (.mp4, .webm)
-
-Depois, atualize o HTML:
+A cor de destaque de cada case study vem de um atributo no `<body>`:
 
 ```html
-<!-- Imagem -->
-<img src="assets/images/meu-projeto.png" alt="Meu Projeto">
-
-<!-- GIF -->
-<img src="assets/gifs/demo.gif" alt="Demo animada">
-
-<!-- Vídeo -->
-<video autoplay loop muted>
-    <source src="assets/videos/demo.mp4" type="video/mp4">
-</video>
+<body data-project="petrukio">   <!-- verde  -->
+<body data-project="rollflix">   <!-- âmbar  -->
+<body data-project="silva">      <!-- dourado -->
 ```
 
-### 4. Cores e Tema
+O CSS redefine `--accent-primary` / `--accent-secondary` por atributo, e todos os componentes
+herdam automaticamente. Para acrescentar um projeto novo, basta um novo bloco `[data-project="..."]`.
 
-Edite as variáveis CSS no início do [style.css](style.css):
+O tema claro/escuro funciona do mesmo jeito, via `data-theme` no `<html>`: respeita o
+`prefers-color-scheme` na primeira visita e depois salva a escolha em `localStorage`.
 
-```css
-:root {
-    --bg-primary: #0a0a0a;        /* Cor de fundo principal */
-    --bg-secondary: #1a1a1a;      /* Cor de fundo secundária */
-    --accent-primary: #6366f1;    /* Cor de destaque */
-    --text-primary: #f5f5f5;      /* Cor do texto */
-    /* ... */
-}
+## Adicionar um projeto
+
+1. Card novo em `index.html`, dentro de `.projects-grid` (copie um `<article class="project-card">` existente).
+2. Página `nome-do-projeto.html` — copie uma existente e troque `<head>` e conteúdo.
+3. `<body data-project="nome">` + o bloco de cores em `style.css`.
+4. Acrescente a URL em `sitemap.xml`.
+5. Adicione o card nos blocos "Outros projetos" das outras páginas de case study.
+
+## Mídia
+
+Os GIFs originais (~25 MB) foram convertidos para MP4 e os PNGs para WebP — **28 MB → 1,7 MB**.
+Os originais continuam no histórico do git, caso precise.
+
+Para converter mídia nova:
+
+```bash
+# GIF → MP4 + poster
+ffmpeg -i entrada.gif -vf "fps=20,format=yuv420p" -c:v libx264 -crf 28 -movflags +faststart -an saida.mp4
+ffmpeg -i entrada.gif -frames:v 1 -vf format=rgba -c:v libwebp -quality 80 poster.webp
+
+# PNG/JPG → WebP
+ffmpeg -i entrada.png -vf format=rgba -c:v libwebp -quality 82 saida.webp
 ```
 
-### 5. Adicionar Novas Habilidades
+## Deploy
 
-No [index.html](index.html), encontre `.skills-grid` e adicione:
+Push na `main` → a Vercel publica sozinha.
 
-```html
-<div class="skill-item">Nova Tecnologia</div>
-```
+⚠️ `vercel.json` usa `cleanUrls: true`, então as URLs públicas **não têm `.html`**
+(`/petrukio`, não `/petrukio.html`). Os `canonical` e o `sitemap.xml` já seguem esse formato.
 
-## 🚀 Como Usar
+## Divulgação e SEO
 
-### Opção 1: Abrir Localmente
-
-1. Abra o arquivo `index.html` no seu navegador
-2. Pronto! O site estará funcionando
-
-### Opção 2: Live Server (VS Code)
-
-1. Instale a extensão "Live Server" no VS Code
-2. Clique com botão direito em `index.html`
-3. Selecione "Open with Live Server"
-
-### Opção 3: Deploy na Web
-
-**GitHub Pages:**
-1. Crie um repositório no GitHub
-2. Faça upload dos arquivos
-3. Vá em Settings > Pages
-4. Selecione a branch `main` e pasta `root`
-5. Seu site estará em: `https://seu-usuario.github.io/nome-repo`
-
-**Netlify:**
-1. Acesse [netlify.com](https://netlify.com)
-2. Arraste a pasta do projeto
-3. Pronto! URL gerada automaticamente
-
-**Vercel:**
-1. Acesse [vercel.com](https://vercel.com)
-2. Importe o repositório do GitHub
-3. Deploy automático
-
-## 📝 Funcionalidades Opcionais
-
-No [script.js](script.js) há código comentado para:
-
-- 🔝 Botão "Voltar ao topo"
-- 📧 Formulário de contato
-- 🌙 Toggle de tema claro/escuro
-
-Descomente as seções relevantes para ativar.
-
-## 🛠️ Tecnologias Utilizadas
-
-- HTML5
-- CSS3 (Flexbox, Grid, Custom Properties)
-- JavaScript ES6+
-- Intersection Observer API
-
-## 📱 Responsividade
-
-O site é totalmente responsivo com breakpoints em:
-
-- Desktop: > 768px
-- Tablet: 481px - 768px
-- Mobile: < 480px
-
-## 🎯 Próximos Passos
-
-Sugestões de melhorias:
-
-- [ ] Adicionar formulário de contato funcional
-- [ ] Integrar com API do GitHub para mostrar repos automaticamente
-- [ ] Adicionar seção de blog
-- [ ] Implementar sistema de filtros nos projetos
-- [ ] Adicionar modo claro/escuro
-- [ ] Integrar Google Analytics
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Sinta-se livre para usar e modificar.
-
----
-
-**Desenvolvido com 💜**
+Veja **[PROMOCAO.md](PROMOCAO.md)** — checklist de indexação no Google, backlinks e distribuição.

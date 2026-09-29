@@ -3,345 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Silva & Associados - Landing Page Institucional para Escritório de Advocacia">
-    <title>Silva & Associados - Detalhes do Projeto</title>
+
+    <title>Silva &amp; Associados — landing page jurídica | Mikael Francisco</title>
+    <meta name="description" content="Case study: landing page institucional para escritório de advocacia com glassmorphism, animações CSS, design responsivo e integração WhatsApp.">
+    <meta name="author" content="Mikael Francisco">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0a0a0c">
+
+    <link rel="canonical" href="https://mikaelfrancisco.vercel.app/silva">
+    <link rel="alternate" hreflang="pt-BR" href="https://mikaelfrancisco.vercel.app/silva">
+    <link rel="alternate" hreflang="x-default" href="https://mikaelfrancisco.vercel.app/silva">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Mikael Francisco">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="Silva &amp; Associados — landing page para escritório de advocacia">
+    <meta property="og:description" content="Case study: landing page institucional para escritório de advocacia com glassmorphism, animações CSS, design responsivo e integração WhatsApp.">
+    <meta property="og:url" content="https://mikaelfrancisco.vercel.app/silva">
+    <meta property="og:image" content="https://mikaelfrancisco.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Silva &amp; Associados — landing page para escritório de advocacia">
+    <meta name="twitter:description" content="Case study: landing page institucional para escritório de advocacia com glassmorphism, animações CSS, design responsivo e integração WhatsApp.">
+    <meta name="twitter:image" content="https://mikaelfrancisco.vercel.app/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Estilos específicos para a página de detalhes */
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-primary);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: var(--spacing-lg);
-            transition: all var(--transition-fast);
-        }
 
-        .back-button:hover {
-            gap: 0.75rem;
-            color: var(--accent-hover);
-        }
-
-        .project-hero {
-            background: linear-gradient(135deg, #1e3a5f 0%, #0f1c2e 100%);
-            padding: var(--spacing-2xl) 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .project-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .project-header h1 {
-            font-size: 3rem;
-            margin-bottom: var(--spacing-sm);
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .project-tagline {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-md);
-        }
-
-        .project-badges {
-            display: flex;
-            gap: var(--spacing-sm);
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .badge {
-            padding: 0.4rem 1rem;
-            background: rgba(212, 175, 55, 0.1);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: #d4af37;
-            font-weight: 500;
-        }
-
-        .project-actions {
-            display: flex;
-            gap: var(--spacing-md);
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.875rem 1.75rem;
-            background: rgba(212, 175, 55, 0.1);
-            border: 2px solid #d4af37;
-            color: #d4af37;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all var(--transition-fast);
-        }
-
-        .action-btn:hover {
-            background: #d4af37;
-            color: var(--bg-primary);
-            transform: translateY(-2px);
-        }
-
-        .action-btn.primary {
-            background: #d4af37;
-            color: var(--bg-primary);
-        }
-
-        .action-btn.primary:hover {
-            background: #c19b2e;
-            border-color: #c19b2e;
-        }
-
-        .project-overview {
-            padding: var(--spacing-2xl) 0;
-        }
-
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .overview-card {
-            background: var(--bg-secondary);
-            padding: var(--spacing-lg);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .overview-card-icon {
-            font-size: 2.5rem;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .overview-card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #d4af37;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .overview-card-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: var(--spacing-lg);
-            color: #d4af37;
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .feature-card {
-            background: var(--bg-secondary);
-            padding: var(--spacing-lg);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-            transition: all var(--transition-normal);
-        }
-
-        .feature-card:hover {
-            border-color: #d4af37;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .feature-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: var(--spacing-sm);
-            color: #d4af37;
-        }
-
-        .feature-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .tech-stack {
-            padding: var(--spacing-2xl) 0;
-            background: var(--bg-secondary);
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: var(--spacing-md);
-        }
-
-        .tech-item {
-            background: var(--bg-primary);
-            padding: var(--spacing-md);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-            text-align: center;
-            font-weight: 600;
-            transition: all var(--transition-fast);
-        }
-
-        .tech-item:hover {
-            border-color: #d4af37;
-            color: #d4af37;
-        }
-
-        .challenges-section {
-            padding: var(--spacing-2xl) 0;
-        }
-
-        .challenge-item {
-            background: var(--bg-secondary);
-            padding: var(--spacing-lg);
-            border-radius: var(--radius-lg);
-            border-left: 4px solid #d4af37;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .challenge-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #d4af37;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .challenge-subtitle {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .challenge-text {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .results-section {
-            padding: var(--spacing-2xl) 0;
-            background: linear-gradient(135deg, rgba(30, 58, 95, 0.3) 0%, rgba(15, 28, 46, 0.3) 100%);
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-lg);
-        }
-
-        .result-card {
-            text-align: center;
-            padding: var(--spacing-lg);
-            background: var(--bg-secondary);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-        }
-
-        .result-icon {
-            font-size: 2.5rem;
-            margin-bottom: var(--spacing-sm);
-        }
-
-        .result-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #d4af37;
-            margin-bottom: var(--spacing-xs);
-        }
-
-        .result-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .learnings-section {
-            padding: var(--spacing-2xl) 0;
-        }
-
-        .learnings-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .learning-item {
-            background: var(--bg-secondary);
-            padding: var(--spacing-md);
-            border-radius: var(--radius-md);
-            border-left: 3px solid #d4af37;
-            margin-bottom: var(--spacing-md);
-            display: flex;
-            align-items: start;
-            gap: var(--spacing-sm);
-        }
-
-        .learning-item::before {
-            content: "✓";
-            color: #d4af37;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .screenshot-section {
-            padding: var(--spacing-2xl) 0;
-            background: var(--bg-secondary);
-        }
-
-        .screenshot-container {
-            background: var(--bg-primary);
-            padding: var(--spacing-lg);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-color);
-        }
-
-        .screenshot-container img {
-            width: 100%;
-            border-radius: var(--radius-md);
-        }
-
-        @media (max-width: 768px) {
-            .project-header h1 {
-                font-size: 2rem;
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
             }
+        })();
+    </script>
 
-            .project-tagline {
-                font-size: 1.1rem;
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "Silva & Associados",
+                "applicationCategory": "WebApplication",
+                "description": "Case study da landing page institucional do escritório Silva &amp; Associados: glassmorphism, animações CSS, design responsivo e integração WhatsApp com foco em conversão.",
+                "url": "https://gipsy7.github.io/SilvaAssociadosLandingPage/",
+                "image": "https://mikaelfrancisco.vercel.app/og-image.png",
+                "operatingSystem": "Web",
+                "author": {
+                    "@type": "Person",
+                    "name": "Mikael Francisco",
+                    "url": "https://mikaelfrancisco.vercel.app/"
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://mikaelfrancisco.vercel.app/" },
+                    { "@type": "ListItem", "position": 2, "name": "Silva & Associados", "item": "https://mikaelfrancisco.vercel.app/silva" }
+                ]
             }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+        ]
+    }
+    </script>
 </head>
-<body>
+<body data-project="silva">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+    <nav class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <a href="index.html" class="navbar-brand">
+                <span class="navbar-mark">MF</span>
+                <span class="navbar-name">Mikael Francisco</span>
+            </a>
+            <button class="navbar-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li><a href="index.html#projects">Projetos</a></li>
+                <li><a href="index.html#experience">Experiência</a></li>
+                <li><a href="index.html#about">Sobre</a></li>
+                <li><a href="index.html#contact">Contato</a></li>
+                <li>
+                    <button class="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+                        <svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                        <svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main">
+
     <!-- Hero Section -->
     <section class="project-hero">
         <div class="container">
@@ -384,7 +161,7 @@
     <!-- Overview Section -->
     <section class="project-overview">
         <div class="container">
-            <h2 class="section-title">📋 Visão Geral do Projeto</h2>
+            <h2 class="case-section-title">📋 Visão Geral do Projeto</h2>
             <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--spacing-xl);">
                 Landing page institucional moderna e profissional desenvolvida para um escritório de advocacia, 
                 com foco em transmitir credibilidade, confiança e excelência técnica. O projeto apresenta um 
@@ -420,9 +197,9 @@
     <!-- Features Section -->
     <section style="padding: var(--spacing-2xl) 0; background: var(--bg-secondary);">
         <div class="container">
-            <h2 class="section-title">✨ Principais Funcionalidades</h2>
+            <h2 class="case-section-title">✨ Principais Funcionalidades</h2>
             
-            <div class="features-grid">
+            <div class="feature-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🧭</div>
                     <h3 class="feature-title">Navegação Inteligente</h3>
@@ -481,22 +258,22 @@
     </section>
 
     <!-- Tech Stack Section -->
-    <section class="tech-stack">
+    <section class="tech-stack-section">
         <div class="container">
-            <h2 class="section-title">🛠️ Tecnologias Utilizadas</h2>
+            <h2 class="case-section-title">🛠️ Tecnologias Utilizadas</h2>
             <div class="tech-grid">
-                <div class="tech-item">HTML5</div>
-                <div class="tech-item">CSS3</div>
-                <div class="tech-item">JavaScript</div>
-                <div class="tech-item">Google Fonts</div>
-                <div class="tech-item">Glassmorphism</div>
-                <div class="tech-item">CSS Grid</div>
-                <div class="tech-item">Flexbox</div>
-                <div class="tech-item">CSS Animations</div>
-                <div class="tech-item">Media Queries</div>
-                <div class="tech-item">Git/GitHub</div>
-                <div class="tech-item">GitHub Pages</div>
-                <div class="tech-item">Mobile First</div>
+                <div class="tech-card">HTML5</div>
+                <div class="tech-card">CSS3</div>
+                <div class="tech-card">JavaScript</div>
+                <div class="tech-card">Google Fonts</div>
+                <div class="tech-card">Glassmorphism</div>
+                <div class="tech-card">CSS Grid</div>
+                <div class="tech-card">Flexbox</div>
+                <div class="tech-card">CSS Animations</div>
+                <div class="tech-card">Media Queries</div>
+                <div class="tech-card">Git/GitHub</div>
+                <div class="tech-card">GitHub Pages</div>
+                <div class="tech-card">Mobile First</div>
             </div>
         </div>
     </section>
@@ -504,7 +281,7 @@
     <!-- Technical Highlights Section -->
     <section class="challenges-section">
         <div class="container">
-            <h2 class="section-title">🔥 Diferenciais Técnicos</h2>
+            <h2 class="case-section-title">🔥 Diferenciais Técnicos</h2>
             
             <div class="challenge-item">
                 <div class="challenge-title">⚡ Performance</div>
@@ -559,7 +336,7 @@
     <!-- Results Section -->
     <section class="results-section">
         <div class="container">
-            <h2 class="section-title">📊 Resultados Alcançados</h2>
+            <h2 class="case-section-title">📊 Resultados Alcançados</h2>
             <div class="results-grid">
                 <div class="result-card">
                     <div class="result-icon">⚡</div>
@@ -607,7 +384,7 @@
     <!-- Challenges Section -->
     <section class="challenges-section">
         <div class="container">
-            <h2 class="section-title">💡 Desafios e Soluções</h2>
+            <h2 class="case-section-title">💡 Desafios e Soluções</h2>
             
             <div class="challenge-item">
                 <div class="challenge-subtitle">🎯 Desafio:</div>
@@ -653,7 +430,7 @@
     <!-- Learnings Section -->
     <section class="learnings-section">
         <div class="container">
-            <h2 class="section-title">🎓 Aprendizados</h2>
+            <h2 class="case-section-title">🎓 Aprendizados</h2>
             <ul class="learnings-list">
                 <li class="learning-item">
                     Aprofundamento em CSS Grid e Flexbox para layouts complexos e responsivos de alta qualidade
@@ -692,10 +469,11 @@
     <!-- Screenshot Section -->
     <section class="screenshot-section">
         <div class="container">
-            <h2 class="section-title">📸 Preview do Projeto</h2>
+            <h2 class="case-section-title">📸 Preview do Projeto</h2>
             <div class="screenshot-container">
-                <img src="assets/images/Silva/silva-preview.png" alt="Silva & Associados - Preview" 
-                     onerror="this.src='https://via.placeholder.com/1200x800/1e3a5f/d4af37?text=Silva+%26+Associados+Landing+Page'">
+                <img src="assets/images/Silva/landingpageSilva.webp"
+                     alt="Landing page do escritório Silva &amp; Associados: hero com menu fixo, cards de áreas de atuação e formulário de contato"
+                     width="1200" height="800" loading="lazy" decoding="async">
                 <p style="text-align: center; color: var(--text-secondary); margin-top: var(--spacing-md);">
                     Layout responsivo com menu fixo, hero impactante, cards interativos e formulário de contato
                 </p>
@@ -706,7 +484,7 @@
     <!-- Links Section -->
     <section style="padding: var(--spacing-2xl) 0; text-align: center;">
         <div class="container">
-            <h2 class="section-title" style="justify-content: center;">🔗 Links do Projeto</h2>
+            <h2 class="case-section-title" style="justify-content: center;">🔗 Links do Projeto</h2>
             <div class="project-actions">
                 <a href="https://gipsy7.github.io/SilvaAssociadosLandingPage/" target="_blank" class="action-btn primary">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -725,6 +503,32 @@
                 Projeto desenvolvido com foco em excelência técnica, design profissional e 
                 experiência do usuário, demonstrando capacidades em front-end moderno e landing pages de conversão.
             </p>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Outros projetos -->
+    <section class="case-nav">
+        <div class="container">
+            <h2 class="case-section-title">Outros projetos</h2>
+            <div class="case-nav-grid">
+                <a href="petrukio.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🐾 Petrukio</p>
+                    <p class="feature-description">SaaS multi-tenant em .NET + Next.js</p>
+                </a>
+                <a href="rollflix.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🎬 RollFlix</p>
+                    <p class="feature-description">App Flutter com Firebase e TMDb</p>
+                </a>
+                <a href="index.html#projects" class="case-nav-card">
+                    <span class="case-nav-label">Voltar</span>
+                    <p class="case-nav-title">← Todos os projetos</p>
+                    <p class="feature-description">Ver o portfólio completo</p>
+                </a>
+            </div>
         </div>
     </section>
 
