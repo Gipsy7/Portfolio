@@ -13,11 +13,12 @@ Portfolio/
 ├── petrukio.html           # Case study — SaaS multi-tenant (.NET + Next.js)
 ├── rollflix.html           # Case study — app Flutter
 ├── silva.html              # Case study — landing page jurídica
+├── youtube-clipper.html    # Case study — app desktop de cortes (Python + React)
 ├── style.css               # Folha de estilo única (tokens + componentes + case studies)
 ├── script.js               # Navbar, tema, lightbox, animações de scroll
 │
 ├── robots.txt              # Libera crawl + aponta o sitemap
-├── sitemap.xml             # As 4 URLs (atualize <lastmod> ao publicar mudanças)
+├── sitemap.xml             # As 5 URLs (atualize <lastmod> ao publicar mudanças)
 ├── site.webmanifest        # PWA / ícones
 ├── vercel.json             # cleanUrls, cache de assets, headers de segurança
 ├── og-image.png            # Cartão de compartilhamento 1200×630

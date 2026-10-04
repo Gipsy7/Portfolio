@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Clipper — cortes do YouTube com Python e React | Mikael Francisco</title>
+    <meta name="description" content="Case study: app desktop que transforma vídeos do YouTube em cortes verticais para Shorts, Reels e TikTok, com melhores momentos automáticos, legendas por transcrição local e publicação nas redes.">
+    <meta name="author" content="Mikael Francisco">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0a0a0c">
+
+    <link rel="canonical" href="https://mikaelfrancisco.vercel.app/youtube-clipper">
+    <link rel="alternate" hreflang="pt-BR" href="https://mikaelfrancisco.vercel.app/youtube-clipper">
+    <link rel="alternate" hreflang="x-default" href="https://mikaelfrancisco.vercel.app/youtube-clipper">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Mikael Francisco">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="Clipper — vídeos do YouTube viram cortes prontos para publicar">
+    <meta property="og:description" content="App desktop em Python + React: melhores momentos automáticos, legendas com transcrição local, templates visuais e publicação no YouTube, Instagram e TikTok.">
+    <meta property="og:url" content="https://mikaelfrancisco.vercel.app/youtube-clipper">
+    <meta property="og:image" content="https://mikaelfrancisco.vercel.app/assets/images/YoutubeClipper/clipper-editor.webp">
+    <meta property="og:image:width" content="1405">
+    <meta property="og:image:height" content="1010">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Clipper — vídeos do YouTube viram cortes prontos para publicar">
+    <meta name="twitter:description" content="App desktop em Python + React: melhores momentos automáticos, legendas com transcrição local, templates visuais e publicação no YouTube, Instagram e TikTok.">
+    <meta name="twitter:image" content="https://mikaelfrancisco.vercel.app/assets/images/YoutubeClipper/clipper-editor.webp">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "Clipper",
+                "applicationCategory": "MultimediaApplication",
+                "operatingSystem": "Windows 10, Windows 11",
+                "description": "App desktop que transforma vídeos do YouTube em cortes verticais para Shorts, Reels e TikTok, com detecção de melhores momentos, legendas automáticas por transcrição local, templates visuais, música de fundo e publicação nas redes.",
+                "url": "https://mikaelfrancisco.vercel.app/youtube-clipper",
+                "downloadUrl": "https://github.com/Gipsy7/clipper-releases/releases/latest",
+                "image": "https://mikaelfrancisco.vercel.app/assets/images/YoutubeClipper/clipper-editor.webp",
+                "screenshot": [
+                    "https://mikaelfrancisco.vercel.app/assets/images/YoutubeClipper/clipper-home.webp",
+                    "https://mikaelfrancisco.vercel.app/assets/images/YoutubeClipper/clipper-cortes.webp"
+                ],
+                "author": {
+                    "@type": "Person",
+                    "name": "Mikael Francisco",
+                    "url": "https://mikaelfrancisco.vercel.app/"
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://mikaelfrancisco.vercel.app/" },
+                    { "@type": "ListItem", "position": 2, "name": "Clipper", "item": "https://mikaelfrancisco.vercel.app/youtube-clipper" }
+                ]
+            }
+        ]
+    }
+    </script>
+</head>
+<body data-project="youtube-clipper">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+    <nav class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <a href="index.html" class="navbar-brand">
+                <span class="navbar-mark">MF</span>
+                <span class="navbar-name">Mikael Francisco</span>
+            </a>
+            <button class="navbar-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li><a href="index.html#projects">Projetos</a></li>
+                <li><a href="index.html#experience">Experiência</a></li>
+                <li><a href="index.html#about">Sobre</a></li>
+                <li><a href="index.html#contact">Contato</a></li>
+                <li>
+                    <button class="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+                        <svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                        <svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main">
+
+    <div class="container case-topbar">
+        <a href="index.html" class="back-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <h1>✂️ Clipper</h1>
+                <p class="project-tagline">Vídeos do YouTube viram cortes verticais prontos para publicar</p>
+
+                <div class="project-badges">
+                    <span class="badge">App Desktop</span>
+                    <span class="badge">Processamento de Vídeo</span>
+                    <span class="badge">Transcrição Local</span>
+                    <span class="badge">Visão Computacional</span>
+                    <span class="badge">Integrações com Redes</span>
+                </div>
+
+                <div class="project-actions">
+                    <a href="https://github.com/Gipsy7/clipper-releases/releases/latest" target="_blank" rel="noopener" class="action-btn primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                        Baixar para Windows
+                    </a>
+                    <a href="#galeria" class="action-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5L5 21"/>
+                        </svg>
+                        Ver telas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Visão Geral do Projeto</h2>
+
+            <div class="highlight-box">
+                <p class="text-content" style="margin-bottom: 0;">
+                    O <strong>Clipper</strong> é um app desktop para Windows que automatiza o trabalho de um canal de cortes:
+                    você cola o link de um vídeo do YouTube, escolhe o trecho (ou deixa o app sugerir os <strong>melhores momentos</strong>),
+                    aplica um layout vertical com título, legendas e música, e publica no <strong>YouTube, Instagram e TikTok</strong>.
+                    Toda a transcrição e a renderização rodam <strong>no computador do usuário</strong>, sem custo de nuvem.
+                </p>
+            </div>
+
+            <p class="text-content">
+                Fazer cortes à mão exige assistir ao vídeo inteiro, recortar num editor, montar a moldura, legendar palavra por palavra
+                e repetir o upload em cada rede. O Clipper junta esse fluxo em quatro passos e reduz um corte de 30 segundos a
+                menos de um minuto de processamento num PC comum.
+            </p>
+
+            <figure class="project-figure">
+                <img src="assets/images/YoutubeClipper/clipper-home.webp"
+                     alt="Tela inicial do Clipper com campo para colar o link do YouTube, os quatro passos do fluxo e os vídeos recentes"
+                     width="1403" height="826" loading="lazy" decoding="async">
+                <figcaption>Tela inicial: cole o link, escolha o trecho, ajuste visual, legendas e música, gere e publique.</figcaption>
+            </figure>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Templates prontos</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Estilos de legenda</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Redes para publicar</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Transcrição local</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="content-section" id="galeria">
+        <div class="container">
+            <h2 class="case-section-title">Telas do App</h2>
+
+            <div class="gallery gallery--wide">
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-editor.webp" alt="Editor de corte com a linha do tempo, os melhores momentos marcados e a escolha do template" width="1405" height="1010" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Editor de corte e escolha do layout</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-visual.webp" alt="Prévia vertical do corte com o vídeo inteiro sobre fundo desfocado" width="1397" height="1006" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Encaixe do vídeo: desfocado, recorte ou seguir rosto</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-template-editor.webp" alt="Editor visual de templates com lista de elementos e prévia arrastável" width="1400" height="1006" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Editor visual de templates</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-template-rapido.webp" alt="Criação rápida de template com cores, fonte, texto, @ do canal e logo" width="1408" height="1016" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Template rápido com prévia ao vivo</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-cortes.webp" alt="Cortes gerados prontos, com botões para publicar no YouTube, Instagram e TikTok" width="1323" height="952" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Cortes prontos para publicar</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-publicar.webp" alt="Janela de publicação no YouTube com título, descrição, tags e geração de thumbnail" width="1405" height="1010" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Publicação com título, tags e thumbnail</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Painéis do editor</h3>
+            <div class="gallery gallery--panels">
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-melhores-momentos.webp" alt="Lista de melhores momentos com intervalo, nota e motivos como áudio intenso e fala rápida" width="833" height="854" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Melhores momentos com nota e motivos</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-legendas.webp" alt="Painel de legendas automáticas com estilos Destaque amarelo, Neon, Caixa preta e Simples" width="465" height="940" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Legendas automáticas em 4 estilos</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/YoutubeClipper/clipper-musica.webp" alt="Painel de áudio com música de fundo, volume, fade e opção de abaixar a música quando alguém fala" width="475" height="662" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Música de fundo com fade e ducking</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Stack Tecnológica</h2>
+
+            <h3 class="subsection-title">Backend e processamento</h3>
+            <div class="tech-chips">
+                <span class="tech-chip">Python 3.12</span>
+                <span class="tech-chip">FastAPI</span>
+                <span class="tech-chip">SQLModel</span>
+                <span class="tech-chip">Alembic</span>
+                <span class="tech-chip">SQLite / PostgreSQL</span>
+                <span class="tech-chip">FFmpeg</span>
+                <span class="tech-chip">yt-dlp</span>
+                <span class="tech-chip">Pillow</span>
+            </div>
+
+            <h3 class="subsection-title">IA local</h3>
+            <div class="tech-chips">
+                <span class="tech-chip">faster-whisper</span>
+                <span class="tech-chip">OpenCV (YuNet)</span>
+                <span class="tech-chip">CTranslate2</span>
+                <span class="tech-chip">Argos Translate</span>
+            </div>
+
+            <h3 class="subsection-title">Frontend e desktop</h3>
+            <div class="tech-chips">
+                <span class="tech-chip">React 19</span>
+                <span class="tech-chip">TypeScript</span>
+                <span class="tech-chip">Vite</span>
+                <span class="tech-chip">pywebview</span>
+                <span class="tech-chip">PyInstaller</span>
+                <span class="tech-chip">Inno Setup</span>
+            </div>
+
+            <h3 class="subsection-title">Integrações e infraestrutura</h3>
+            <div class="tech-chips">
+                <span class="tech-chip">YouTube Data API (OAuth)</span>
+                <span class="tech-chip">Instagram Graph API</span>
+                <span class="tech-chip">Playwright</span>
+                <span class="tech-chip">Cloudflare Tunnel</span>
+                <span class="tech-chip">Docker Compose</span>
+                <span class="tech-chip">Caddy</span>
+                <span class="tech-chip">Oracle Cloud</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Funcionalidades Principais</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3 class="feature-title">Melhores Momentos</h3>
+                    <p class="feature-description">
+                        Cada janela do vídeo recebe uma nota que combina o mapa de "mais repetidos" do YouTube, a energia
+                        e a dinâmica do áudio, a densidade de fala e ganchos na transcrição (perguntas, exclamações, palavras-chave).
+                        As sugestões não se sobrepõem e terminam em frases completas.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">Legendas Automáticas</h3>
+                    <p class="feature-description">
+                        Transcrição com faster-whisper rodando na CPU, em blocos de até 3 palavras com a palavra falada em destaque.
+                        Revisão do texto antes de gerar e tradução local para PT-BR, EN e ES.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3 class="feature-title">Glossário de Transcrição</h3>
+                    <p class="feature-description">
+                        Nomes e bordões que o modelo costuma errar entram como contexto (initial prompt e hotwords),
+                        junto com o título, o canal e os capítulos do vídeo.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🙂</div>
+                    <h3 class="feature-title">Seguir Rosto</h3>
+                    <p class="feature-description">
+                        Detecção de rostos com OpenCV (YuNet) e recorte suavizado que acompanha quem está falando
+                        ao converter vídeo horizontal em vertical.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 class="feature-title">Editor de Templates</h3>
+                    <p class="feature-description">
+                        12 layouts prontos, criação rápida com cores, logo e fonte, e um editor visual com arrastar,
+                        redimensionar, alinhamento magnético e fontes TTF/OTF próprias.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3 class="feature-title">Música de Fundo</h3>
+                    <p class="feature-description">
+                        Biblioteca de músicas com licença, fade, loop e ducking (a música abaixa quando alguém fala).
+                        O crédito exigido pela licença entra sozinho na descrição.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h3 class="feature-title">Thumbnails Automáticas</h3>
+                    <p class="feature-description">
+                        Gera 3 opções em 1280×720 escolhendo quadros nítidos e com rosto, já com o título escrito.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">Publicação nas Redes</h3>
+                    <p class="feature-description">
+                        Upload retomável para o YouTube via OAuth, Reels no Instagram pela API oficial e fluxo assistido
+                        para o TikTok. Histórico com o link de cada corte publicado.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Arquitetura</h2>
+
+            <div class="code-block">
+                <pre>App desktop (pywebview) ─▶ Frontend React 19 + TypeScript (Vite)
+                                     │
+                                     ▼
+                         API FastAPI + SQLModel/Alembic
+                                     │
+                     Fila de jobs persistida no banco
+                ┌────────────────────┼────────────────────┐
+             upload               leve                 pesado
+          (YouTube,         (download do trecho,   (transcrição,
+           Instagram)        thumbnails, análise)   renderização FFmpeg)</pre>
+            </div>
+
+            <ul class="simple-list">
+                <li>✅ <strong>Fila de jobs no banco</strong> com três filas separadas, para que um upload ou uma renderização longa não trave o resto do app</li>
+                <li>✅ <strong>yt-dlp baixa só o trecho escolhido</strong>, e não o vídeo inteiro</li>
+                <li>✅ <strong>Overlay do template desenhado com Pillow</strong> e composto pelo FFmpeg num único passo de renderização</li>
+                <li>✅ <strong>Mesmo código em dois modos:</strong> instalador Windows (SQLite, PyInstaller + Inno Setup) ou servidor com Docker Compose (app, worker, PostgreSQL e Caddy) na Oracle Cloud</li>
+                <li>✅ <strong>Multiusuário</strong> com dados isolados, convites assinados, backup exportável e aviso de atualização</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Challenges -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Desafios Técnicos Superados</h2>
+
+            <ul class="challenge-list">
+                <li class="challenge-item">
+                    <strong>1. Transcrição boa sem GPU</strong>
+                    O faster-whisper roda em int8 na CPU, com dois modos: "Rápida" (modelo base) para uma ideia em segundos e
+                    "Precisa" (large-v3-turbo) para a versão final. A transcrição completa é reaproveitada quando já existe uma
+                    feita com um modelo igual ou melhor.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>2. Achar o trecho que prende</strong>
+                    Calibrei pesos entre o mapa de "mais repetidos", a energia do áudio e os ganchos na fala, favorecendo picos
+                    em vez de médias e evitando sugestões sobrepostas. O resultado aparece com nota e motivos para o usuário decidir rápido.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>3. Limite de envios do YouTube</strong>
+                    A cota da API permite poucos uploads por dia. O app usa upload retomável, tem uma publicação manual guiada como
+                    alternativa e uma automação opcional do YouTube Studio para tornar os vídeos públicos.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>4. Instagram exige uma URL pública</strong>
+                    A API do Instagram busca o vídeo por URL, mas o arquivo está no PC do usuário. A solução foi abrir um túnel
+                    temporário da Cloudflare só durante a publicação.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>5. Distribuir um app Python como programa comum</strong>
+                    Empacotamento com PyInstaller, instalador Inno Setup que não pede administrador, download de modelos sob demanda
+                    e tours guiados para quem nunca editou vídeo.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Learning -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Aprendizados e Skills Demonstradas</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Processamento de mídia</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>Filtros complexos no FFmpeg</li>
+                        <li>Mixagem com sidechain (ducking)</li>
+                        <li>Legendas queimadas e animadas</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">IA rodando local</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>Speech-to-text com Whisper</li>
+                        <li>Tradução com CTranslate2</li>
+                        <li>Detecção de rosto com OpenCV</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">Backend Python</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>FastAPI + SQLModel + Alembic</li>
+                        <li>Fila de jobs com workers</li>
+                        <li>OAuth e APIs de terceiros</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">Produto</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>Instalador e atualizações</li>
+                        <li>Onboarding com tours</li>
+                        <li>Versão de testes com usuários reais</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <section class="content-section" style="border-bottom: none;">
+        <div class="container" style="text-align: center;">
+            <h2 class="case-section-title">Experimente o Clipper</h2>
+            <p class="text-content">Versão de testes para Windows 10 e 11. O código-fonte é privado.</p>
+            <div class="project-actions">
+                <a href="https://github.com/Gipsy7/clipper-releases/releases/latest" target="_blank" rel="noopener" class="action-btn primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    </svg>
+                    Baixar a última versão
+                </a>
+                <a href="https://github.com/Gipsy7/clipper-releases" target="_blank" rel="noopener" class="action-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Guia de instalação
+                </a>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Outros projetos -->
+    <section class="case-nav">
+        <div class="container">
+            <h2 class="case-section-title">Outros projetos</h2>
+            <div class="case-nav-grid">
+                <a href="petrukio.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🐾 Petrukio</p>
+                    <p class="feature-description">SaaS multi-tenant em .NET</p>
+                </a>
+                <a href="rollflix.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🎬 RollFlix</p>
+                    <p class="feature-description">App Flutter com Firebase e TMDb</p>
+                </a>
+                <a href="silva.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🏛️ Silva &amp; Associados</p>
+                    <p class="feature-description">Landing page de conversão</p>
+                </a>
+                <a href="index.html#projects" class="case-nav-card">
+                    <span class="case-nav-label">Voltar</span>
+                    <p class="case-nav-title">← Todos os projetos</p>
+                    <p class="feature-description">Ver o portfólio completo</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Mikael Francisco. Desenvolvido com 💜</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
