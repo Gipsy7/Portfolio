@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FreelaLivre — plataforma de freelance com .NET 10 e React | Mikael Francisco</title>
+    <meta name="description" content="Case study: plataforma de freelance para desenvolvedores sem assinatura, com taxa só sobre trabalho pago, Pix em custódia pelo Asaas, chat em tempo real com SignalR e vitrine para iniciantes.">
+    <meta name="author" content="Mikael Francisco">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#0a0a0c">
+
+    <link rel="canonical" href="https://mikaelfrancisco.vercel.app/freelalivre">
+    <link rel="alternate" hreflang="pt-BR" href="https://mikaelfrancisco.vercel.app/freelalivre">
+    <link rel="alternate" hreflang="x-default" href="https://mikaelfrancisco.vercel.app/freelalivre">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Mikael Francisco">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:title" content="FreelaLivre — freelance para devs, sem pagar para trabalhar">
+    <meta property="og:description" content="Full-stack .NET 10 + React: propostas com valor líquido na hora, Pix em custódia pelo Asaas, chat em tempo real, avaliações às cegas e vitrine para iniciantes.">
+    <meta property="og:url" content="https://mikaelfrancisco.vercel.app/freelalivre">
+    <meta property="og:image" content="https://mikaelfrancisco.vercel.app/assets/images/FreelaLivre/freelalivre-proposta.webp">
+    <meta property="og:image:width" content="1400">
+    <meta property="og:image:height" content="1000">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FreelaLivre — freelance para devs, sem pagar para trabalhar">
+    <meta name="twitter:description" content="Full-stack .NET 10 + React: propostas com valor líquido na hora, Pix em custódia pelo Asaas, chat em tempo real, avaliações às cegas e vitrine para iniciantes.">
+    <meta name="twitter:image" content="https://mikaelfrancisco.vercel.app/assets/images/FreelaLivre/freelalivre-proposta.webp">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebApplication",
+                "name": "FreelaLivre",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "Web",
+                "description": "Plataforma de freelance para desenvolvedores sem assinatura: a receita vem só de uma taxa de 5% de cada lado sobre trabalho pago, com Pix em custódia, chat em tempo real, avaliações às cegas e vitrine para iniciantes.",
+                "url": "https://freelalivre.onrender.com/",
+                "image": "https://mikaelfrancisco.vercel.app/assets/images/FreelaLivre/freelalivre-proposta.webp",
+                "screenshot": [
+                    "https://mikaelfrancisco.vercel.app/assets/images/FreelaLivre/freelalivre-inicio.webp",
+                    "https://mikaelfrancisco.vercel.app/assets/images/FreelaLivre/freelalivre-pagamento-pix.webp"
+                ],
+                "author": {
+                    "@type": "Person",
+                    "name": "Mikael Francisco",
+                    "url": "https://mikaelfrancisco.vercel.app/"
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://mikaelfrancisco.vercel.app/" },
+                    { "@type": "ListItem", "position": 2, "name": "FreelaLivre", "item": "https://mikaelfrancisco.vercel.app/freelalivre" }
+                ]
+            }
+        ]
+    }
+    </script>
+</head>
+<body data-project="freelalivre">
+    <a href="#main" class="skip-link">Pular para o conteúdo</a>
+
+    <nav class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <a href="index.html" class="navbar-brand">
+                <span class="navbar-mark">MF</span>
+                <span class="navbar-name">Mikael Francisco</span>
+            </a>
+            <button class="navbar-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="navbar-menu" id="navbar-menu">
+                <li><a href="index.html#projects">Projetos</a></li>
+                <li><a href="index.html#experience">Experiência</a></li>
+                <li><a href="index.html#about">Sobre</a></li>
+                <li><a href="index.html#contact">Contato</a></li>
+                <li>
+                    <button class="theme-toggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+                        <svg class="theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                        <svg class="theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main id="main">
+
+    <div class="container case-topbar">
+        <a href="index.html" class="back-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Voltar ao Portfólio
+        </a>
+    </div>
+
+    <!-- Project Hero -->
+    <section class="project-hero">
+        <div class="container">
+            <div class="project-header">
+                <h1>🤝 FreelaLivre</h1>
+                <p class="project-tagline">Freelance para devs, sem pagar para trabalhar</p>
+
+                <div class="project-badges">
+                    <span class="badge">Full-stack .NET + React</span>
+                    <span class="badge">Pagamentos Pix</span>
+                    <span class="badge">Tempo Real</span>
+                    <span class="badge">Marketplace</span>
+                    <span class="badge">No ar</span>
+                </div>
+
+                <div class="project-actions">
+                    <a href="https://freelalivre.onrender.com/" target="_blank" rel="noopener" class="action-btn primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                        </svg>
+                        Abrir o site
+                    </a>
+                    <a href="#galeria" class="action-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <path d="M21 15l-5-5L5 21"/>
+                        </svg>
+                        Ver telas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Visão Geral do Projeto</h2>
+
+            <div class="highlight-box">
+                <p class="text-content" style="margin-bottom: 0;">
+                    O <strong>FreelaLivre</strong> é uma plataforma de freelance para desenvolvedores onde
+                    <strong>ninguém paga para propor nem para aparecer</strong>. Não há assinatura nem créditos:
+                    a plataforma ganha uma taxa de <strong>5% de cada lado</strong>, só quando o projeto é pago.
+                    E parte das posições da busca é reservada para <strong>quem está começando</strong>.
+                </p>
+            </div>
+
+            <p class="text-content">
+                A ideia nasceu de uma dor real: ao procurar trabalho como freelancer, a maioria das plataformas cobra
+                assinatura ou dá vantagens enormes a quem paga, e quem está começando fica invisível justamente quando
+                ainda não tem renda. O projeto cobre o fluxo completo, da publicação do projeto ao repasse por Pix, e está
+                publicado com pagamentos no <strong>sandbox do Asaas</strong> (nenhum dinheiro de verdade circula).
+            </p>
+
+            <figure class="project-figure">
+                <img src="assets/images/FreelaLivre/freelalivre-inicio.webp"
+                     alt="Página inicial do FreelaLivre: freelance para devs, sem pagar para trabalhar, com os destaques sem assinatura, taxa justa e espaço para quem está começando"
+                     width="1400" height="560" loading="lazy" decoding="async">
+                <figcaption>Página inicial: zero assinatura, zero crédito para propor, taxa só quando o projeto é pago.</figcaption>
+            </figure>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">5% + 5%</span>
+                    <span class="stat-label">Taxa, só sobre trabalho pago</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1 em 4</span>
+                    <span class="stat-label">Posições para iniciantes</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">348</span>
+                    <span class="stat-label">Testes automatizados</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">R$ 0</span>
+                    <span class="stat-label">Para propor ou aparecer</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="content-section" id="galeria">
+        <div class="container">
+            <h2 class="case-section-title">Telas da Plataforma</h2>
+
+            <div class="gallery gallery--wide">
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-projetos.webp" alt="Busca de projetos com filtros por habilidade, orçamento e projetos abertos a iniciantes" width="1400" height="1000" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Busca de projetos com filtros</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-proposta.webp" alt="Formulário de proposta mostrando a taxa de 5% e quanto o freelancer recebe enquanto digita o valor" width="1400" height="1000" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Proposta com o valor líquido na hora</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-propostas-recebidas.webp" alt="Cliente vendo as propostas recebidas, com valor, prazo, habilidades e o selo Novo na plataforma" width="1400" height="1000" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Propostas recebidas pelo cliente</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-pagamento-pix.webp" alt="Contrato com o QR Code Pix gerado pelo sandbox do Asaas e o valor guardado em custódia" width="1400" height="1000" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Pagamento Pix em custódia (Asaas)</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-chat.webp" alt="Chat do contrato entre cliente e freelancer com confirmação de leitura" width="1400" height="1000" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Chat em tempo real com confirmação de leitura</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-freelancers.webp" alt="Busca de freelancers com experientes e novatos intercalados na vitrine" width="1400" height="1000" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Vitrine com espaço para novatos</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-perfil.webp" alt="Perfil público do freelancer com nota média, avaliações e resposta pública" width="1400" height="1000" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Perfil público com avaliações</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">No celular</h3>
+            <div class="gallery gallery--panels">
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-celular-projeto.webp" alt="Página de um projeto aberto no celular, com orçamento, prazo e habilidades" width="585" height="1266" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Projeto aberto</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/images/FreelaLivre/freelalivre-celular-novato.webp" alt="Perfil de um freelancer novato no celular, com o selo Novo na plataforma" width="585" height="1266" loading="lazy" decoding="async">
+                    <div class="gallery-caption">Perfil de um novato</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Stack Tecnológica</h2>
+
+            <h3 class="subsection-title">Backend</h3>
+            <div class="tech-chips">
+                <span class="tech-chip">.NET 10</span>
+                <span class="tech-chip">ASP.NET Core Minimal APIs</span>
+                <span class="tech-chip">EF Core 10</span>
+                <span class="tech-chip">PostgreSQL</span>
+                <span class="tech-chip">SignalR</span>
+                <span class="tech-chip">ASP.NET Identity + JWT</span>
+                <span class="tech-chip">xUnit</span>
+            </div>
+
+            <h3 class="subsection-title">Frontend</h3>
+            <div class="tech-chips">
+                <span class="tech-chip">React 19</span>
+                <span class="tech-chip">TypeScript</span>
+                <span class="tech-chip">Vite</span>
+                <span class="tech-chip">TanStack Query</span>
+                <span class="tech-chip">React Hook Form + Zod</span>
+                <span class="tech-chip">Tailwind CSS</span>
+                <span class="tech-chip">Vitest</span>
+            </div>
+
+            <h3 class="subsection-title">Pagamentos e infraestrutura</h3>
+            <div class="tech-chips">
+                <span class="tech-chip">Asaas (Pix e transferências)</span>
+                <span class="tech-chip">Docker</span>
+                <span class="tech-chip">Render</span>
+                <span class="tech-chip">Neon (PostgreSQL)</span>
+                <span class="tech-chip">GitHub Actions</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Funcionalidades Principais</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3 class="feature-title">Projetos e Propostas</h3>
+                    <p class="feature-description">
+                        O cliente publica escopo, faixa de orçamento, prazo e habilidades, e pode marcar o projeto como
+                        "aberto a iniciantes". O freelancer vê na hora a taxa e quanto recebe. Limite de 10 propostas por dia,
+                        igual para todos, sem créditos pagos.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title">Contrato com Valores Congelados</h3>
+                    <p class="feature-description">
+                        Ao aceitar uma proposta, as outras são recusadas e nasce o contrato com valores e percentuais
+                        congelados. Mudar a taxa no futuro não afeta trabalho já combinado.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💸</div>
+                    <h3 class="feature-title">Pix em Custódia</h3>
+                    <p class="feature-description">
+                        O cliente paga por Pix e o dinheiro fica guardado até a entrega ser aprovada. Sem resposta em
+                        7 dias, a entrega é aprovada automaticamente e o repasse vai para a chave Pix do freelancer.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">Chat em Tempo Real</h3>
+                    <p class="feature-description">
+                        Conversa dentro do contrato com SignalR, confirmação de leitura e atualização ao vivo quando
+                        o pagamento é confirmado ou a entrega muda de estado.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3 class="feature-title">Avaliações às Cegas</h3>
+                    <p class="feature-description">
+                        Cliente e freelancer se avaliam sem ver a nota do outro. Ela só aparece quando os dois avaliaram
+                        ou depois de 14 dias, e quem foi avaliado pode responder publicamente.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3 class="feature-title">Vitrine para Iniciantes</h3>
+                    <p class="feature-description">
+                        1 a cada 4 posições da busca de freelancers vai para quem tem menos de 3 contratos, em rodízio
+                        diário. Nada que se compre melhora o ranking ou a visibilidade.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Arquitetura</h2>
+
+            <div class="code-block">
+                <pre>Navegador (React 19 + TanStack Query)
+     │  HTTP + cookie            │  WebSocket
+     ▼                           ▼
+┌──────────── Render: um container Docker ────────────┐
+│  ASP.NET Core 10 Minimal APIs   SignalR /hubs/chat  │
+│  Workers: aprovação automática e repasses           │
+│  wwwroot: build do React (mesmo endereço, sem CORS) │
+└───────────────┬─────────────────────────┬───────────┘
+                ▼                         ▼
+       PostgreSQL (Neon)        Asaas: Pix, transferências
+                                 └─ webhook ─▶ API</pre>
+            </div>
+
+            <ul class="simple-list">
+                <li>✅ <strong>Três camadas:</strong> domínio puro (sem EF nem ASP.NET, 100% testado), infraestrutura (EF Core, Identity, cliente do Asaas) e API organizada por feature</li>
+                <li>✅ <strong>Gateway de pagamento atrás de uma interface:</strong> o Asaas real em produção e um gateway falso nos testes de integração</li>
+                <li>✅ <strong>Sessão segura em SPA:</strong> JWT de 15 minutos só em memória e refresh token em cookie <code>HttpOnly</code> + <code>SameSite=Strict</code>, com rotação a cada uso e só o hash no banco</li>
+                <li>✅ <strong>Deploy contínuo:</strong> Dockerfile em três estágios e publicação no Render só depois que o CI do GitHub Actions passa</li>
+                <li>✅ <strong>LGPD:</strong> o CPF/CNPJ do pagador vai direto ao Asaas e não fica guardado; a chave Pix do freelancer só sai da API mascarada</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Technical Challenges -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Desafios Técnicos Superados</h2>
+
+            <ul class="challenge-list">
+                <li class="challenge-item">
+                    <strong>1. Nunca pagar o freelancer duas vezes</strong>
+                    O repasse grava o estado "Enviando" antes de chamar o Asaas, com concorrência otimista pelo <code>xmin</code>
+                    do PostgreSQL. Uma recusa explícita é reagendada com espera exponencial; um resultado incerto (timeout, erro 5xx)
+                    fica parado para conferência em vez de ser reenviado. Um teste simula a transferência "perdida" e prova que ela não se repete.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>2. Webhook que não confia no corpo</strong>
+                    O token é validado em tempo constante, eventos repetidos são descartados pelo id e a cobrança é consultada no
+                    Asaas antes de confirmar qualquer pagamento. Sem webhook, uma reconciliação na consulta do status cobre a lacuna.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>3. Dois aceites ao mesmo tempo</strong>
+                    Token de concorrência no projeto e índices únicos garantem que um projeto não feche com dois freelancers:
+                    quem chega depois recebe 409. Testado com requisições paralelas reais contra o PostgreSQL.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>4. Ranking justo sem nada pago</strong>
+                    Experientes são ordenados por média bayesiana, para uma única nota 5 não passar na frente de 4,8 em 50 trabalhos.
+                    Os novatos entram em rodízio diário estável (hash do id + dia), e as avaliações escondidas são filtradas na
+                    própria consulta SQL para nenhuma média vazar uma nota ainda às cegas.
+                </li>
+
+                <li class="challenge-item">
+                    <strong>5. Bugs que só o mundo real mostrou</strong>
+                    A data de vencimento do Asaas chegava com offset <code>-03:00</code> e o Npgsql recusava gravar; "1.500" era lido
+                    como 1,5 no campo de valor; a ordenação de texto mudava entre Windows e Linux. Cada um virou teste, e o front
+                    calcula o valor líquido em centavos inteiros com os mesmos casos de teste do back-end.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Learning -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="case-section-title">Aprendizados e Skills Demonstradas</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Backend .NET</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>Minimal APIs por feature</li>
+                        <li>EF Core com concorrência otimista</li>
+                        <li>Workers em background</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">Pagamentos</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>Pix e transferências com Asaas</li>
+                        <li>Webhooks idempotentes</li>
+                        <li>Repasses à prova de duplicidade</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">Qualidade</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>348 testes (domínio, API e front)</li>
+                        <li>Integração com PostgreSQL real</li>
+                        <li>CI no GitHub Actions</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <h3 class="feature-title">Produto</h3>
+                    <ul class="simple-list" style="margin-left: 0;">
+                        <li>Ideia, modelo de receita e plano técnico</li>
+                        <li>Interface responsiva em pt-BR</li>
+                        <li>Deploy com Docker, Render e Neon</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Actions -->
+    <section class="content-section" style="border-bottom: none;">
+        <div class="container" style="text-align: center;">
+            <h2 class="case-section-title">Experimente o FreelaLivre</h2>
+            <p class="text-content">
+                Crie uma conta de cliente ou de freelancer e teste o fluxo completo. Os pagamentos usam o sandbox do Asaas.
+                No plano gratuito, o primeiro acesso depois de um tempo parado pode levar uns 30 a 60 segundos. O código-fonte é privado.
+            </p>
+            <div class="project-actions">
+                <a href="https://freelalivre.onrender.com/" target="_blank" rel="noopener" class="action-btn primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                    </svg>
+                    Abrir o FreelaLivre
+                </a>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Outros projetos -->
+    <section class="case-nav">
+        <div class="container">
+            <h2 class="case-section-title">Outros projetos</h2>
+            <div class="case-nav-grid">
+                <a href="petrukio.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🐾 Petrukio</p>
+                    <p class="feature-description">SaaS multi-tenant em .NET</p>
+                </a>
+                <a href="youtube-clipper.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">✂️ Clipper</p>
+                    <p class="feature-description">Cortes do YouTube com Python e IA local</p>
+                </a>
+                <a href="rollflix.html" class="case-nav-card">
+                    <span class="case-nav-label">Próximo projeto</span>
+                    <p class="case-nav-title">🎬 RollFlix</p>
+                    <p class="feature-description">App Flutter com Firebase e TMDb</p>
+                </a>
+                <a href="index.html#projects" class="case-nav-card">
+                    <span class="case-nav-label">Voltar</span>
+                    <p class="case-nav-title">← Todos os projetos</p>
+                    <p class="feature-description">Ver o portfólio completo</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Mikael Francisco. Desenvolvido com 💜</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -101,6 +101,14 @@
     --glow-color: rgba(251, 191, 36, 0.4);
 }
 
+[data-project="freelalivre"] {
+    --accent-primary: #10b981;
+    --accent-secondary: #059669;
+    --accent-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --accent-hover: #047857;
+    --glow-color: rgba(16, 185, 129, 0.4);
+}
+
 [data-project="silva"] {
     --accent-primary: #d4af37;
     --accent-secondary: #c19b2e;

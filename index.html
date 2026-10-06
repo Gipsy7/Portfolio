@@ -90,7 +90,7 @@
                     "Entity Framework", "Dapper", "SQL Server", "PostgreSQL",
                     "Azure DevOps", "Azure Functions", "Next.js", "React",
                     "TypeScript", "Flutter", "Firebase", "Git",
-                    "Python", "FastAPI", "FFmpeg", "Docker"
+                    "Python", "FastAPI", "FFmpeg", "Docker", "SignalR"
                 ]
             },
             {
@@ -193,9 +193,52 @@
         <div class="container">
             <h2 class="section-title">Projetos</h2>
             <p class="section-subtitle">
-                Quatro projetos reais — do SaaS multi-tenant ao app desktop e mobile.
+                Cinco projetos reais — da plataforma com pagamentos Pix ao app desktop e mobile.
             </p>
             <div class="projects-grid">
+                <!-- Project Card - FreelaLivre -->
+                <article class="project-card" data-href="freelalivre.html">
+                    <div class="project-image">
+                        <img src="assets/images/FreelaLivre/freelalivre-card.webp"
+                             alt="Projeto aberto no FreelaLivre com o formulário de proposta mostrando a taxa e quanto o freelancer recebe"
+                             width="1020" height="574" loading="lazy" decoding="async">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            <a href="freelalivre.html" class="project-title-link">🤝 FreelaLivre</a>
+                        </h3>
+                        <p class="project-description">
+                            Plataforma de freelance para desenvolvedores sem assinatura: a receita vem só de uma taxa de 5%
+                            de cada lado sobre trabalho pago. Pix em custódia pelo Asaas, chat em tempo real com SignalR,
+                            avaliações às cegas e vitrine com espaço reservado para iniciantes. 348 testes automatizados.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">.NET 10</span>
+                            <span class="tech-tag">Minimal APIs</span>
+                            <span class="tech-tag">EF Core</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">SignalR</span>
+                            <span class="tech-tag">React 19</span>
+                            <span class="tech-tag">TypeScript</span>
+                            <span class="tech-tag">Pix (Asaas)</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://freelalivre.onrender.com/" target="_blank" rel="noopener" class="project-link">
+                                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                                </svg>
+                                Site
+                            </a>
+                            <a href="freelalivre.html" class="project-link">
+                                <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                                Detalhes
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
                 <!-- Project Card 1 - Petrukio -->
                 <article class="project-card" data-href="petrukio.html">
                     <div class="project-image">
@@ -441,6 +484,7 @@
                         <div class="skill-item">ASP.NET Core</div>
                         <div class="skill-item">Web APIs</div>
                         <div class="skill-item">Minimal APIs</div>
+                        <div class="skill-item">SignalR</div>
                         <div class="skill-item">Entity Framework</div>
                         <div class="skill-item">Dapper</div>
                         <div class="skill-item">SQL Server</div>
