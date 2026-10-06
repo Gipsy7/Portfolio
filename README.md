@@ -51,10 +51,11 @@ A cor de destaque de cada case study vem de um atributo no `<body>`:
 <body data-project="petrukio">   <!-- verde  -->
 <body data-project="rollflix">   <!-- âmbar  -->
 <body data-project="silva">      <!-- dourado -->
+<body data-project="freelalivre"> <!-- esmeralda -->
 ```
 
 O CSS redefine `--accent-primary` / `--accent-secondary` por atributo, e todos os componentes
-herdam automaticamente. Para acrescentar um projeto novo, basta um novo bloco `[data-project="..."]`.
+herdam automaticamente. O `youtube-clipper` não tem bloco próprio e usa o destaque padrão do site. Para acrescentar um projeto novo, basta um novo bloco `[data-project="..."]`.
 
 O tema claro/escuro funciona do mesmo jeito, via `data-theme` no `<html>`: respeita o
 `prefers-color-scheme` na primeira visita e depois salva a escolha em `localStorage`.
